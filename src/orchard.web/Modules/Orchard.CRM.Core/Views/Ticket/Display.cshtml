@@ -1,0 +1,59 @@
+@using Orchard.Utility.Extensions;
+@Display(New.ThemeAwareStylesheet())
+@{
+   Style.Include("jquery-ui.css");
+}
+<article class="content-item ticket">
+    <header>
+        @*<div class="ticket-display-toolbar">
+            @if (!Model.IsCurrentUserCustomer)
+            {
+                <a class="crm-button" href="@Url.Action("CreateChildTicket", "Ticket", new { area = "Orchard.CRM.Core", parentTicketId = Model.ContentItem.Id })">@T("Create Child")</a>
+            }
+            @if (Model.CurrentUserCanEditContent)
+            {
+                <a class="crm-button" href="@Url.Action("Edit", "Ticket", new { area = "Orchard.CRM.Core", id = Model.ContentItem.Id })">@T("Edit")</a>
+            }
+            @if (!Model.IsCurrentUserCustomer && Model.CurrentUserCanChangePermission)
+            {
+                <a class="crm-button" href="@Url.Action("Edit", "ContentOwnership", new { area = "Orchard.CRM.Core", ids = Model.ContentItem.Id })">@T("Share")</a>
+            }
+        </div>*@
+        @Display(Model.Header)
+        @if (Model.Meta != null)
+        {
+            <div class="metadata">
+                @Display(Model.Meta)
+            </div>
+        }
+    </header>
+    @if (Model.BeforeContent != null)
+    {
+        @Display(Model.BeforeContent)
+    }
+    <div class="ticket-item">
+        @if (Model.AsideFirst != null)
+        {
+            <div class="left-item">@Display(Model.AsideFirst)</div>
+        }
+        @Display(Model.Content)
+    </div>
+    @if (Model.AsideSecond != null)
+    {
+        <div>@Display(Model.AsideSecond)</div>
+    }
+    @if (Model.Footer != null)
+    {
+        <footer>
+            @Display(Model.Footer)
+        </footer>
+    }
+</article>
+
+@using (Script.Foot())
+{
+    Script.Require("CRMWidgets");
+    <script language="javascript" type="text/javascript">
+        $("body").DisplayTicket();
+    </script>
+}

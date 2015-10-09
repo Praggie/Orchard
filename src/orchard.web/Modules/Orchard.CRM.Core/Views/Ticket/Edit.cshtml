@@ -1,0 +1,79 @@
+@Display(New.ThemeAwareStylesheet())
+@{
+    var typeDisplayName = Model.ContentItem.TypeDefinition.DisplayName;
+    var pageTitle = T("Edit Content");
+    if (!string.IsNullOrWhiteSpace(typeDisplayName))
+    {
+        pageTitle = T("Edit {0}", typeDisplayName);
+    }
+
+    Layout.Title = pageTitle;
+    Style.Include("jquery-ui.css");
+    Style.Include("chosen/chosen.css");
+    Script.Require("Chosen");
+}
+
+@using (Html.BeginFormAntiForgeryPost(Url.Action("EditPOST"), FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary()
+    <input type="hidden" name="id" value="@Model.ContentItem.Id" />
+    // Model is a Shape, calling Display() so that it is rendered using the most specific template for its Shape type
+    <div class="edit-item edit-ticket-page edit-ticket-page">
+        <div class="edit-item-primary">
+            @if (Model.Content != null)
+            {
+                <div class="edit-item-content content-ticket">
+                    @if (Model.Header != null)
+                    {
+                        <div class="ticket-header">
+                            @Display(Model.Header)
+                        </div>
+                    }
+                    <div class="ticket-item">
+                        @Display(Model.Content)
+                    </div>
+                </div>
+            }
+            @if (Model.AsideSecond != null)
+            {
+                <div class="left-item">@Display(Model.AsideSecond)</div>
+            }
+        </div>
+        <div class="edit-item-secondary group ticket-actions">
+            @if (Model.Actions != null)
+            {
+                <div class="edit-item-actions">
+                    @Display(Model.Actions)
+                </div>
+            }
+            @if (Model.Sidebar != null)
+            {
+                <div class="edit-item-sidebar group">
+                    @Display(Model.Sidebar)
+                </div>
+            }
+        </div>
+    </div>
+
+    if (!String.IsNullOrWhiteSpace(Request.QueryString["returnUrl"]))
+    {
+        @Html.Hidden("returnUrl", Request.QueryString["returnUrl"])
+    }
+}
+@if (Model.OutsideMainForm != null)
+{
+    <div class="ticket-item-comments">
+        @Display(Model.OutsideMainForm)
+    </div>
+}
+
+@using (Script.Foot())
+{
+    Script.Require("CRMWidgets");
+    <script language="javascript" type="text/javascript">
+        $("body").EditTicket();
+    </script>
+}
+@{
+    Style.Include("jquery-ui.css");
+}

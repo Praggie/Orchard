@@ -1,0 +1,30 @@
+﻿<div class="ticket-title-wrapper">
+    <div class="ticket-title">
+        <h1 class="titr">
+            @if (Model.ParentTicketId != null)
+            {
+                string parentTitle = Model.ParentTitle.Length > 30 ? Model.ParentTitle.Substring(0, 27) + "..." : Model.ParentTitle;
+                <a class="a" href="@Url.Action("Display", "Ticket", new { area = "Orchard.CRM.Core", id = Model.ParentTicketId })">
+                    <span>@(Model.ParentTicketNumber)</span>
+                    <span class="text" title="@Model.ParentTitle">@parentTitle</span>
+                </a>
+                <span class="seperator">@Html.Raw("/")</span>
+            }
+            @{
+                string title = Model.Title.Length > 50 ? Model.Title.Substring(0, 47) + "..." : Model.Title;
+            }
+            <span class="child-text">@(Model.TicketNumber)</span>
+            <span class="child-text" title="@Model.Title">@title</span>
+        </h1>
+        <div class="ticket-menu">
+            <span class="ticket-menu-icon1"></span><span class="ticket-menu-icon2"></span>
+            <ul class="ticket-toolbar-menu">
+                <li><a href="@Url.Action("Edit", "Ticket", new { area = "Orchard.CRM.Core", id = Model.TicketId})">@T("Edit")</a></li>
+                <li><a href="@Url.Action("CreateChildTicket", "Ticket", new { area = "Orchard.CRM.Core", parentTicketId = Model.ContentItem.Id })">@T("Create Sub Ticket")</a></li>
+                <li>
+                   <a href="@Url.Action("Edit", "ContentOwnership", new { area = "Orchard.CRM.Core", ids = Model.TicketId })">@T("Share")</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

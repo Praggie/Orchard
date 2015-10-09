@@ -1,0 +1,111 @@
+﻿@using System.Globalization;
+@{
+    var ticketViewMoodel = (Orchard.CRM.Core.ViewModels.TicketViewModel)Model.Model;
+    string description = ticketViewMoodel.Text;
+}
+<div class="column">
+    <div class="col3">@T("Status")</div>
+    <div class="popup-host combobox ticket-status-value">
+        <span>@T(ticketViewMoodel.StatusName)</span>
+        @if (ticketViewMoodel.CurrentUserCanEditItem && !ticketViewMoodel.CurrentUserIsCustomer)
+        {
+            <div class="popup-menu change-status-options">
+                @Display(New.ChangeTicketStatusOptions(contentItemId: ticketViewMoodel.ContentItemId))
+            </div>
+        }
+    </div>
+</div>
+<div class="column">
+    <div class="col3">@T("Priority")</div>
+    <div class="popup-host combobox ticket-priority-value">
+        <span>@T(ticketViewMoodel.PriorityName)</span>
+        @if (ticketViewMoodel.CurrentUserCanEditItem)
+        {
+            <div class="popup-menu change-priorities-options">
+                @Display(New.ChangeTicketPrioritiesOptions(contentItemId: ticketViewMoodel.ContentItemId))
+            </div>
+        }
+    </div>
+</div>
+<div class="column">
+    <div class="col3">@T("Service")</div>
+    <div class="popup-host ticket-service-value combobox ">
+        <span>@T(ticketViewMoodel.ServiceName)</span>
+        @if (ticketViewMoodel.CurrentUserCanEditItem)
+        {
+            <div class="popup-menu change-services-options">
+                @Display(New.ChangeTicketServicesOptions(contentItemId: ticketViewMoodel.ContentItemId))
+            </div>
+        }
+    </div>
+</div>
+<div class="column">
+    <div class="col3">@T("Type")</div>
+    <div class="popup-host ticket-type-value combobox ">
+        <span>@T(ticketViewMoodel.TypeName)</span>
+        @if (ticketViewMoodel.CurrentUserCanEditItem)
+        {
+            <div class="popup-menu change-type-options">
+                @Display(New.ChangeTicketTicketTypesOptions(contentItemId: ticketViewMoodel.ContentItemId))
+            </div>
+        }
+    </div>
+</div>
+<div class="column">
+    <div class="col3">@T("Due Date")</div>
+    <div class="combobox popup-host ticket-duedate-value">
+        @if (ticketViewMoodel.DueDate.HasValue)
+        {
+            DateTime dateTime = ticketViewMoodel.DueDate.Value;
+            string dateTimeString = string.Format(CultureInfo.InvariantCulture, "{0} {1}", dateTime.ToLongDateString(), dateTime.ToShortTimeString());
+            <span title="@dateTimeString">@ticketViewMoodel.DueDate.Value.ToLongDateString()</span>
+        }
+        else
+        {
+            <span title="-">@T("-")</span>
+        }
+        @if (ticketViewMoodel.CurrentUserCanEditItem && !ticketViewMoodel.CurrentUserIsCustomer)
+        {
+            <div class="popup-menu change-duedate-options">
+                @Display(New.ChangeDueDateOptions(contentItemId: ticketViewMoodel.ContentItemId))
+            </div>
+        }
+    </div>
+</div>
+<div class="column">
+    <div class="col3">@T("Reporter")</div>
+    <div class="combobox">
+        @{
+            string reporterName = string.IsNullOrEmpty(ticketViewMoodel.RequestingUserFullName) ? ticketViewMoodel.RequestingUsername : ticketViewMoodel.RequestingUserFullName;
+            if (reporterName == null)
+            {
+                reporterName = "-";
+            }
+        }
+        <span title="@ticketViewMoodel.RequestingUserEmail">@reporterName</span>
+    </div>
+</div>
+<div>
+    <div class="col3">@T("Description")</div>
+</div>
+<div class="ticket-desc">@Html.Raw(description)</div>
+<div class="clear"></div>
+<div>
+    @if (ticketViewMoodel.SubTickets.Count > 0)
+    {
+        <h3>@T("Sub tickets")</h3>
+        <ul>
+            @foreach (var subTicket in ticketViewMoodel.SubTickets)
+            {
+                <li>
+                    <a href="@Url.Action("Display", "Ticket", new { area = "Orchard.CRM.Core", id = subTicket.ContentItemId })">
+                        <span>@("#" + subTicket.TicketNumber)</span>
+                        <span>@subTicket.Title</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+
