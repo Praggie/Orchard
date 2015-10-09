@@ -115,6 +115,7 @@ namespace Orchard.Environment.Extensions.Compilers {
 
         private CodeCompileUnit CreateCompileUnit(string virtualPath) {
             var contents = GetContents(virtualPath);
+
             var unit = new CodeSnippetCompileUnit(contents);
             var physicalPath = _virtualPathProvider.MapPath(virtualPath);
             if (!string.IsNullOrEmpty(physicalPath)) {
