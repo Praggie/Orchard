@@ -27,6 +27,8 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,6 +58,12 @@
     </Reference>
     <Reference Include="FidelitySMS">
       <HintPath>..\..\..\..\lib\Gateway\FidelitySMS.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS">
+      <HintPath>..\..\..\..\lib\Gateway\IBM.XMS.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Client.Impl">
+      <HintPath>..\..\..\..\lib\Gateway\IBM.XMS.Client.Impl.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -147,6 +155,9 @@
     <Reference Include="TwilioSMSGateway">
       <HintPath>..\..\..\..\lib\Gateway\TwilioSMSGateway.dll</HintPath>
     </Reference>
+    <Reference Include="WMQMessageListener">
+      <HintPath>..\..\..\..\lib\Gateway\WMQMessageListener.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets.json" />
@@ -194,8 +205,12 @@
     <Compile Include="Forms\TextFilterContainsForm.cs" />
     <Compile Include="Handlers\TweetTaskHandler.cs" />
     <Compile Include="Handlers\TweetPartHandler.cs" />
+    <Compile Include="Impersonator.cs" />
     <Compile Include="Migrations.cs" />
+    <Compile Include="Models\ShortMessage.cs" />
     <Compile Include="Models\Tweet.cs" />
+    <Compile Include="MQBackgroundTask.cs" />
+    <Compile Include="MQService.cs" />
     <Compile Include="Providers\GatewayTokenProvider.cs" />
     <Compile Include="SMSService.cs" />
     <Compile Include="TwitterService.cs" />
@@ -257,5 +272,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
 </Project>
