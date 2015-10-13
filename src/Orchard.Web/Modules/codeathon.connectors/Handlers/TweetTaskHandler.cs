@@ -139,8 +139,8 @@ namespace codeathon.connectors.Handlers
          var tweetAlreadyInDB =   contentManager.Query<TweetPart, TweetRecord>()
                             .Where(tw => tw.TweetId == tweet.IdStr)
                                 .ForType(new[] { "Tweet" }).List().Select(p=>p.ContentItem).SingleOrDefault();
-           // if (tweetAlreadyInDB != null)
-            //    return;
+            if (tweetAlreadyInDB != null)
+                return;
 
             var emailContentItem = contentManager.New(TweetPart.ContentItemTypeName);
             var emailPart = emailContentItem.As<TweetPart>();
@@ -161,7 +161,8 @@ namespace codeathon.connectors.Handlers
             emailPart.IsRetweet = tweet.IsRetweet;
             emailPart.Source = tweet.Source;
             emailPart.TweetId = tweet.IdStr;
-            emailPart.CreatedBy = tweet.TweetDTO.CreatedBy.ScreenName;
+            if(!String.IsNullOrWhiteSpace(tweet.TweetDTO.CreatedBy.ScreenName))
+                emailPart.CreatedBy = "@"+tweet.TweetDTO.CreatedBy.ScreenName;
             emailPart.CreatedById = tweet.TweetDTO.CreatedBy.IdStr;
             
             contentManager.Create(emailContentItem);

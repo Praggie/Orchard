@@ -28,9 +28,15 @@ namespace codeathon.connectors.Folder {
                         Name: "TextToSend",
                         Title: T("Text To Send"),
                         Description: T("The Text To Verify in TwitterUser ."),
-                        Classes: new[] { "text", "large", "tokenized" }));
+                        Classes: new[] { "text", "large", "tokenized" }),
+                    _SendAsPM: shape.Checkbox(
+                        Id: "SendAsPM",
+                        Name: "SendAsPM",
+                        Title: T("SendAsPM"),
+                        Description: T("Check to send tweet as PM."),
+                        Value: true));
 
-                return form;
+            return form;
             });
         }
 

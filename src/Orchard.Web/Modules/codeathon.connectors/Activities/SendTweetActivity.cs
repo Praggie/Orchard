@@ -48,9 +48,18 @@ namespace codeathon.connectors.Activities
             var twitterUser = activityContext.GetState<string>("TwitterUser");
             var textToSend = activityContext.GetState<string>("TextToSend");
             var inReplyToTweet = activityContext.GetState<string>("InReplyToTweet");
-            if(twitterUser != "dumptyhumpty80")
-                tweetService.ReplyToTweet(inReplyToTweet, '@'+ twitterUser + ' ' +textToSend);
-            yield return T("Done");
+            var sendAsPM = activityContext.GetState<bool>("SendAsPM");
+            if (sendAsPM) {
+
+                tweetService.SendPrivateMessage(twitterUser,  textToSend);
+            }
+            else
+            {
+                 if(twitterUser != "dumptyhumpty80")
+                tweetService.ReplyToTweet(inReplyToTweet,  twitterUser + ' ' +textToSend);
+                yield return T("Done");
+            }
+            
 
           
         }
