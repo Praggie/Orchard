@@ -138,40 +138,40 @@ namespace codeathon.connectors.Handlers
 
          var tweetAlreadyInDB =   contentManager.Query<TweetPart, TweetRecord>()
                             .Where(tw => tw.TweetId == tweet.IdStr)
-                                .ForType(new[] { "Tweet" }).List().Select(p=>p.ContentItem).SingleOrDefault();
+                                .ForType(new[] { "Tweet" }).List().Select(p=>p.ContentItem).FirstOrDefault();
             if (tweetAlreadyInDB != null)
                 return;
 
-            var emailContentItem = contentManager.New(TweetPart.ContentItemTypeName);
-            var emailPart = emailContentItem.As<TweetPart>();
+            var tweetContentItem = contentManager.New(TweetPart.ContentItemTypeName);
+            var tweetPart = tweetContentItem.As<TweetPart>();
 
             // I don't know why it is null
-            if (emailPart == null)
+            if (tweetPart == null)
             {
-                emailPart = new TweetPart();
-                emailPart.Record = new TweetRecord();
-                emailContentItem.Weld(emailPart);
+                tweetPart = new TweetPart();
+                tweetPart.Record = new TweetRecord();
+                tweetContentItem.Weld(tweetPart);
             }
 
-            emailPart.Text = tweet.Text;
-            emailPart.CreatedAt = tweet.CreatedAt;
-            emailPart.InReplyToScreenName = tweet.InReplyToScreenName;
-            emailPart.InReplyToUserId = tweet.InReplyToUserId;
-            emailPart.InReplyToUserIdStr = tweet.InReplyToUserIdStr;
-            emailPart.IsRetweet = tweet.IsRetweet;
-            emailPart.Source = tweet.Source;
-            emailPart.TweetId = tweet.IdStr;
+            tweetPart.Text = tweet.Text;
+            tweetPart.CreatedAt = tweet.CreatedAt;
+            tweetPart.InReplyToScreenName = tweet.InReplyToScreenName;
+            tweetPart.InReplyToUserId = tweet.InReplyToUserId;
+            tweetPart.InReplyToUserIdStr = tweet.InReplyToUserIdStr;
+            tweetPart.IsRetweet = tweet.IsRetweet;
+            tweetPart.Source = tweet.Source;
+            tweetPart.TweetId = tweet.IdStr;
             if(!String.IsNullOrWhiteSpace(tweet.TweetDTO.CreatedBy.ScreenName))
-                emailPart.CreatedBy = "@"+tweet.TweetDTO.CreatedBy.ScreenName;
-            emailPart.CreatedById = tweet.TweetDTO.CreatedBy.IdStr;
+                tweetPart.CreatedBy = "@"+tweet.TweetDTO.CreatedBy.ScreenName;
+            tweetPart.CreatedById = tweet.TweetDTO.CreatedBy.IdStr;
             
-            contentManager.Create(emailContentItem);
-            contentManager.Publish(emailContentItem);
+            contentManager.Create(tweetContentItem);
+            contentManager.Publish(tweetContentItem);
 
             workflowManager.TriggerEvent(
                 TweetReceivedActivity.ActivityName,
-                emailContentItem,
-                () => new Dictionary<string, object> { { "Content", emailContentItem } });
+                tweetContentItem,
+                () => new Dictionary<string, object> { { "Content", tweetContentItem } });
 
         }
 
