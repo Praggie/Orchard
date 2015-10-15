@@ -48,7 +48,7 @@ namespace codeathon.connectors {
 
         public int UpdateFrom2()
         {
-            SchemaBuilder.CreateTable("WMQMessage", table => table
+            SchemaBuilder.CreateTable("ShortMessageRecord", table => table
                  .ContentPartRecord()
                  .Column("MessageId", DbType.String)
                  .Column("Message", DbType.String)
@@ -56,16 +56,16 @@ namespace codeathon.connectors {
                  .Column("EmailSendTo", DbType.String)
                  .Column("SMSSendTo", DbType.String)
                  .Column("TwitterSendTo", DbType.String)
-                 .Column("TargetSystem", DbType.String)                
+                 .Column("TargetSystem", DbType.String)
            );
 
             ContentDefinitionManager.AlterPartDefinition("ShortMessagePart", builder => builder.Attachable());
 
-            ContentDefinitionManager.AlterTypeDefinition("ShortMessagePart",
+            ContentDefinitionManager.AlterTypeDefinition(ShortMessagePart.ContentItemTypeName,
             cfg => cfg
                .WithPart("CommonPart")
                .WithPart("ShortMessagePart")
-            .DisplayedAs("Message Request"));
+            .DisplayedAs("MessageRequest"));
             return 3;
         }
     }

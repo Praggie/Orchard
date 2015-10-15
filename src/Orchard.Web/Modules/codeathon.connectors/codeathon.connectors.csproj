@@ -203,7 +203,9 @@
     <Compile Include="Activities\SendTweetActivity.cs" />
     <Compile Include="Activities\TextFilterContainsActivity.cs" />
     <Compile Include="Activities\TweetPrivateMessageReceivedActivity.cs" />
+    <Compile Include="Activities\ShortMessageReceivedActivity.cs" />
     <Compile Include="Activities\TweetReceivedActivity.cs" />
+    <Compile Include="Drivers\ShortMessagePartDriver.cs" />
     <Compile Include="Drivers\TweetPartDriver.cs" />
     <Compile Include="Forms\SendSMSForm.cs" />
     <Compile Include="Forms\SendTweetForm.cs" />
