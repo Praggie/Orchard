@@ -9,18 +9,22 @@ namespace codeathon.connectors.Models
 {
     public class ShortMessageRecord : ContentPartRecord
     {
-        public string MessageId { get; set; }
-        public string Message { get; set; }
-        public string MessagePriority { get; set; }
-        public bool NotificationRequired { get; set; }
-        public string EmailMessageSendTo { get; set; }
-        public string SMSMessageSendTo { get; set; }
-        public string TwitterMessageSendTo { get; set; }        
-        public string TargetQueue { get; set; }
+        public virtual string MessageId { get; set; }
+        public virtual string Message { get; set; }
+        public virtual string MessagePriority { get; set; }
+        public virtual bool NotificationRequired { get; set; }
+        public virtual string EmailMessageSendTo { get; set; }
+        public virtual string SMSMessageSendTo { get; set; }
+        public virtual string TwitterMessageSendTo { get; set; }
+        public virtual string TargetQueue { get; set; }
+
+
     }
 
     public class ShortMessagePart : ContentPart<ShortMessageRecord>
     {
+        public const string ContentItemTypeName = "ShortMessage";
+
         public string MessageId { get { return Retrieve(r => r.MessageId); } set { Store(r => r.MessageId, value); } }
         public string Message { get { return Retrieve(r => r.Message); } set { Store(r => r.Message, value); } }
         public string MessagePriority { get { return Retrieve(r => r.MessagePriority); } set { Store(r => r.MessagePriority, value); } }
