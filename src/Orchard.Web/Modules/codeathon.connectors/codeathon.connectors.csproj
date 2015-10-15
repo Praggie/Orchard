@@ -200,7 +200,6 @@
   <ItemGroup>
     <Compile Include="Activities\SendSMSActivity.cs" />
     <Compile Include="Activities\SendTweetActivity.cs" />
-    <Compile Include="Activities\ConvertTextToSpeechActivity.cs" />
     <Compile Include="Activities\TextFilterContainsActivity.cs" />
     <Compile Include="Activities\TweetPrivateMessageReceivedActivity.cs" />
     <Compile Include="Activities\TweetReceivedActivity.cs" />
@@ -209,6 +208,8 @@
     <Compile Include="Forms\SendTweetForm.cs" />
     <Compile Include="Forms\ConvertTextToSpeechForm.cs" />
     <Compile Include="Forms\TextFilterContainsForm.cs" />
+    <Compile Include="Handlers\ShortMessagePartHandler.cs" />
+    <Compile Include="Handlers\ShortMessageTaskHandler.cs" />
     <Compile Include="Handlers\TweetTaskHandler.cs" />
     <Compile Include="Handlers\TweetPartHandler.cs" />
     <Compile Include="Impersonator.cs" />

@@ -48,10 +48,78 @@
     <PackageAsSingleFile>false</PackageAsSingleFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="amqmdnsp, Version=6.0.1.1, Culture=neutral, PublicKeyToken=4ec3909022c7abcc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\WMQTest\WMQTest\WMQTest\bin\Debug - Copy\amqmdnsp.dll</HintPath>
+    </Reference>
+    <Reference Include="amqmdxcs, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7a58d55a51981a15, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\WMQTest\WMQTest\WMQTest\bin\Debug - Copy\amqmdxcs.dll</HintPath>
+    </Reference>
     <Reference Include="Autofac, Version=2.6.3.862, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\autofac\Autofac.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="IBM.XMS.Admin">
+      <HintPath>..\..\lib\wmq\IBM.XMS.Admin.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Admin.Objects">
+      <HintPath>..\..\lib\wmq\IBM.XMS.Admin.Objects.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Client.Impl">
+      <HintPath>..\..\lib\wmq\IBM.XMS.Client.Impl.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Client.WMQ">
+      <HintPath>..\..\lib\wmq\IBM.XMS.Client.WMQ.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Comms">
+      <HintPath>..\..\lib\wmq\IBM.XMS.Comms.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Comms.RMM">
+      <HintPath>..\..\lib\wmq\IBM.XMS.Comms.RMM.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Comms.SSL">
+      <HintPath>..\..\lib\wmq\IBM.XMS.Comms.SSL.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Core">
+      <HintPath>..\..\lib\wmq\IBM.XMS.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Formats.JMF">
+      <HintPath>..\..\lib\wmq\IBM.XMS.Formats.JMF.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Formats.MFP">
+      <HintPath>..\..\lib\wmq\IBM.XMS.Formats.MFP.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Impl">
+      <HintPath>..\..\lib\wmq\IBM.XMS.Impl.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Match">
+      <HintPath>..\..\lib\wmq\IBM.XMS.Match.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.NLS">
+      <HintPath>..\..\lib\wmq\IBM.XMS.NLS.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Provider">
+      <HintPath>..\..\lib\wmq\IBM.XMS.Provider.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.SIB">
+      <HintPath>..\..\lib\wmq\IBM.XMS.SIB.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Util">
+      <HintPath>..\..\lib\wmq\IBM.XMS.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.WCF">
+      <HintPath>..\..\lib\wmq\IBM.XMS.WCF.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.WCF.NLS">
+      <HintPath>..\..\lib\wmq\IBM.XMS.WCF.NLS.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.WMQ">
+      <HintPath>..\..\lib\wmq\IBM.XMS.WMQ.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.WMQI">
+      <HintPath>..\..\lib\wmq\IBM.XMS.WMQI.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Host.SystemWeb">
       <HintPath>..\..\lib\owin\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
@@ -135,6 +203,9 @@
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="WMQMessageListener">
+      <HintPath>..\..\lib\wmq\WMQMessageListener.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
