@@ -45,5 +45,28 @@ namespace codeathon.connectors {
            );
             return 2;
         }
+
+        public int UpdateFrom2()
+        {
+            SchemaBuilder.CreateTable("WMQMessage", table => table
+                 .ContentPartRecord()
+                 .Column("MessageId", DbType.String)
+                 .Column("Message", DbType.String)
+                 .Column("Priority", DbType.String)
+                 .Column("EmailSendTo", DbType.String)
+                 .Column("SMSSendTo", DbType.String)
+                 .Column("TwitterSendTo", DbType.String)
+                 .Column("TargetSystem", DbType.String)                
+           );
+
+            ContentDefinitionManager.AlterPartDefinition("ShortMessagePart", builder => builder.Attachable());
+
+            ContentDefinitionManager.AlterTypeDefinition("ShortMessagePart",
+            cfg => cfg
+               .WithPart("CommonPart")
+               .WithPart("ShortMessagePart")
+            .DisplayedAs("Message Request"));
+            return 3;
+        }
     }
 }
