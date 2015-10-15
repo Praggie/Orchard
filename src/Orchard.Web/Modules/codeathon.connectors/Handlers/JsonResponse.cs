@@ -4,6 +4,9 @@
 //  $Revision: $
 //  $LastChangedBy: $
 // ---------------------------------------------------------------------------------------
+
+using System;
+
 namespace codeathon.connectors.Handlers
 {
     using System.Runtime.Serialization;
@@ -32,6 +35,12 @@ namespace codeathon.connectors.Handlers
     [DataContract]
     public class Message
     {
+        //[DataMember(Name = "DateInserted", IsRequired = false)]
+        //public DateTime? DateInserted { get; set; }
+
+        [DataMember(Name = "Index")]
+        public int Index { get; set; }
+
         /// <summary>
         /// Gets or sets the message sid.
         /// </summary>
@@ -66,7 +75,7 @@ namespace codeathon.connectors.Handlers
         /// Gets or sets the error code.
         /// </summary>
         [DataMember(Name = "ErrorCode")]
-        public object ErrorCode { get; set; }
+        public string ErrorCode { get; set; }
 
         /// <summary>
         /// Gets or sets the from city.

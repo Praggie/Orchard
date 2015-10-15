@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using codeathon.connectors.Activities;
 using codeathon.connectors.Models;
@@ -65,32 +66,70 @@ namespace codeathon.connectors.Handlers
             {
 
                 this.transactionManager.Demand();
+
+                var contentManager = this.orchardServices.ContentManager;
+                var smsAlreadyInDB = contentManager.Query<SMSPart, SMSRecord>()
+                                  .OrderBy(tw => tw.Index)
+                                      .ForType(new[] { "SMS" }).List().LastOrDefault();
+                Task<JsonResponse> result = null;
                 RestClientService restClientService = new RestClientService();
-                var result = restClientService.GetResponseAsync();
-                result.Wait();
-                var messages = result.Result.Messages;
-                //RaiseWorkflow(tweet);
+                if (smsAlreadyInDB == null || smsAlreadyInDB.Index == 0)
+                {
+                    result = restClientService.GetResponseAsync();
+                    result.Wait();
+                    var messages = result.Result.Messages;
+                    RaiseWorkflow(messages);
+                }
+                else
+                {
+                    result = restClientService.GetResponseAsync(smsAlreadyInDB.Index);
+                    result.Wait();
+                    var messages = result.Result.Messages;
+                    RaiseWorkflow(messages);
+                    
+                }
             }
         }
 
         private void RaiseWorkflow(Message[] messages)
         {
-            return;
             var contentManager = this.orchardServices.ContentManager;
 
-            var smsContentItem = contentManager.New(SMSPart.ContentItemTypeName);
-            var smsPart = smsContentItem.As<SMSPart>();
-
-            // I don't know why it is null
-            if (smsPart == null)
+            foreach (var message in messages)
             {
-                smsPart = new SMSPart();
-                smsPart.Record = new SMSRecord();
-                smsContentItem.Weld(smsPart);
-            }
+                var smsContentItem = contentManager.New(SMSPart.ContentItemTypeName);
+                var smsPart = smsContentItem.As<SMSPart>();
 
-            contentManager.Create(smsContentItem);
-            contentManager.Publish(smsContentItem);
+                // I don't know why it is null
+                if (smsPart == null)
+                {
+                    smsPart = new SMSPart();
+                    smsPart.Record = new SMSRecord();
+                    smsContentItem.Weld(smsPart);
+                }
+
+                smsPart.Index = message.Index;
+                // smsPart.DateInserted = message.DateInserted;
+                smsPart.MessageSid = message.MessageSid;
+                smsPart.From = message.From;
+                smsPart.To = message.To;
+                smsPart.Body = message.Body;
+                smsPart.MessageStatus = message.MessageStatus;
+                smsPart.ErrorCode = message.ErrorCode;
+                smsPart.FromCity = message.FromCity;
+                smsPart.FromState = message.FromState;
+                smsPart.FromZip = message.FromZip;
+                smsPart.FromCountry = message.FromCountry;
+                smsPart.ToCity = message.ToCity;
+                smsPart.ToState = message.ToState;
+                smsPart.ToZip = message.ToZip;
+                smsPart.ToCountry = message.ToCountry;
+                smsPart.Direction = message.Direction;
+
+                contentManager.Create(smsContentItem);
+                contentManager.Publish(smsContentItem);
+                
+            }
 
             //workflowManager.TriggerEvent(
             //    TweetReceivedActivity.ActivityName,

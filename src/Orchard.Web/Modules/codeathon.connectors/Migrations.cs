@@ -68,5 +68,38 @@ namespace codeathon.connectors {
             .DisplayedAs("MessageRequest"));
             return 3;
         }
+
+        public int UpdateFrom3()
+        {
+            SchemaBuilder.CreateTable("SMSRecord", table => table
+                 .ContentPartRecord()
+                 .Column("Index", DbType.Int32)
+                 .Column("DateInserted", DbType.DateTime)
+                 .Column("MessageSid", DbType.String)
+                 .Column("From", DbType.String)
+                 .Column("To", DbType.String)
+                 .Column("Body", DbType.String)
+                 .Column("MessageStatus", DbType.String)
+                 .Column("ErrorCode", DbType.String)
+                 .Column("FromCity", DbType.String)
+                 .Column("FromState", DbType.String)
+                 .Column("FromZip", DbType.String)
+                 .Column("FromCountry", DbType.String)
+                 .Column("ToCity", DbType.String)
+                 .Column("ToState", DbType.String)
+                 .Column("ToZip", DbType.String)
+                 .Column("ToCountry", DbType.String)
+                 .Column("Direction", DbType.String)
+           );
+
+            ContentDefinitionManager.AlterPartDefinition("SMSPart", builder => builder.Attachable());
+
+            ContentDefinitionManager.AlterTypeDefinition(TweetPart.ContentItemTypeName,
+            cfg => cfg
+               .WithPart("CommonPart")
+               .WithPart("SMSPart")
+            .DisplayedAs("SMS"));
+            return 4;
+        }
     }
 }

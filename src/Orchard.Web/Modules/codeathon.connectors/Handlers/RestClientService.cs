@@ -21,6 +21,8 @@ namespace codeathon.connectors.Handlers
         /// The CRIL application
         /// </summary>
         private const string ApiUrl = "http://twiliosmsreceiver.azurewebsites.net/api/values";
+        
+        private const string ApiQueryUrl = "http://twiliosmsreceiver.azurewebsites.net/api/values/{0}";
 
         /// <summary>
         /// The serialize helper.
@@ -60,6 +62,27 @@ namespace codeathon.connectors.Handlers
                 using (var httpClient = new HttpClient())
                 {
                     var httpResponse = await httpClient.GetAsync(ApiUrl);
+
+                    if (httpResponse.IsSuccessStatusCode && httpResponse.Content != null)
+                    {
+                        var responseText = await httpResponse.Content.ReadAsStringAsync();
+                        var responseMessages = this.serializeHelper.Deserialize<Message[]>(responseText);
+                        response = new JsonResponse(responseMessages);
+                    }
+                }
+            }
+
+            return response;
+        }
+
+        public async Task<JsonResponse> GetResponseAsync(int lastIndex)
+        {
+            var response = default(JsonResponse);
+
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    var httpResponse = await httpClient.GetAsync(string.Format(ApiUrl, lastIndex));
 
                     if (httpResponse.IsSuccessStatusCode && httpResponse.Content != null)
                     {
