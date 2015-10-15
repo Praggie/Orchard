@@ -37,8 +37,7 @@ namespace codeathon.connectors
 
         public void Connect()
         {
-
-            
+                        
             using (new Impersonator("ivmapp", "Inda215111", "Password@1"))
             {
                 MessageListener.WMQClient.QueueConfiguration config = new MessageListener.WMQClient.QueueConfiguration("ent-hubdev1_svc.uk.fid-intl.com", 54371, "CH01.CLIENT.ENTH2D1", "ENTH2D1");
