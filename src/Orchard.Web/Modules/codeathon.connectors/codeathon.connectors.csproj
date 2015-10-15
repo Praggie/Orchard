@@ -218,8 +218,8 @@
     <Compile Include="MQBackgroundTask.cs" />
     <Compile Include="MQService.cs" />
     <Compile Include="Providers\GatewayTokenProvider.cs" />
-    <Compile Include="Services\FileService.cs" />
-    <Compile Include="Services\IFileService.cs" />
+    <Compile Include="Services\TextToSppechFileService.cs" />
+    <Compile Include="Services\ITextToSppechFileService.cs" />
     <Compile Include="SMSService.cs" />
     <Compile Include="TwitterService.cs" />
   </ItemGroup>
