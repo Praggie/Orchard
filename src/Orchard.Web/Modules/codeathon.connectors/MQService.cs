@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using Orchard;
 using Tweetinvi;
 using Tweetinvi.Core.Credentials;
@@ -29,26 +31,26 @@ namespace codeathon.connectors
 
         public void Connect()
         {
-            using (new Impersonator("ivmapp", "Inda215111", "Password@1"))
-            {
-                MessageListener.WMQClient.QueueConfiguration config = new MessageListener.WMQClient.QueueConfiguration("ent-hubdev1_svc.uk.fid-intl.com", 54371, "CH01.CLIENT.ENTH2D1", "ENTH2D1");
-                factory = new WMQFactory(config);
-                conection = factory.CreateConnection();
-                WMQMessageObserver obj = new WMQMessageObserver("IM.GLXY.QUICKINS.BACKOUT", conection, "test");
-                obj.OnMeetingTriggered += obj_OnMeetingTriggered;
-                obj.StartObserving();
+            //using (new Impersonator("ivmapp", "Inda215111", "Password@1"))
+            //{
+            //    MessageListener.WMQClient.QueueConfiguration config = new MessageListener.WMQClient.QueueConfiguration("ent-hubdev1_svc.uk.fid-intl.com", 54371, "CH01.CLIENT.ENTH2D1", "ENTH2D1");
+            //    factory = new WMQFactory(config);
+            //    conection = factory.CreateConnection();
+            //    WMQMessageObserver obj = new WMQMessageObserver("IM.GLXY.QUICKINS.BACKOUT", conection, "test");
+            //    obj.OnMeetingTriggered += obj_OnMeetingTriggered;
+            //    obj.StartObserving();
 
-                MessageListener.WMQClient.QueueConfiguration desconfig = new MessageListener.WMQClient.QueueConfiguration("ent-hubdev1_svc.uk.fid-intl.com", 54371, "CH01.CLIENT.ENTH2D1", "ENTH2D1");
-                destinationFactory = new WMQFactory(desconfig);
-                destinationConnection = destinationFactory.CreateConnection();
-            }
+            //    MessageListener.WMQClient.QueueConfiguration desconfig = new MessageListener.WMQClient.QueueConfiguration("ent-hubdev1_svc.uk.fid-intl.com", 54371, "CH01.CLIENT.ENTH2D1", "ENTH2D1");
+            //    destinationFactory = new WMQFactory(desconfig);
+            //    destinationConnection = destinationFactory.CreateConnection();
+            //}
         }
 
         private void obj_OnMeetingTriggered(object sender, MesssageReceiveddEventArgs e)
         {
-            FilSmsRequest smsrequest = DeserializeMeetingEvent(e.Message);
-            SMSService sms = new SMSService();
-            sms.SendSMS()
+            //FilSmsRequest smsrequest = DeserializeMeetingEvent(e.Message);
+            //SMSService sms = new SMSService();
+            //sms.SendSMS();
         }
 
         private static FilSmsRequest DeserializeMeetingEvent(string xmlDeserilizedMeetingEvent)
