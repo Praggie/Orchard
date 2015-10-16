@@ -50,6 +50,15 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="amqmdnet">
+      <HintPath>..\..\..\..\lib\wmq\amqmdnet.dll</HintPath>
+    </Reference>
+    <Reference Include="amqmdnsp">
+      <HintPath>..\..\..\..\lib\wmq\amqmdnsp.dll</HintPath>
+    </Reference>
+    <Reference Include="amqmdxcs">
+      <HintPath>..\..\..\..\lib\wmq\amqmdxcs.dll</HintPath>
+    </Reference>
     <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
       <Private>True</Private>
@@ -57,11 +66,70 @@
     <Reference Include="FidelitySMS">
       <HintPath>..\..\..\..\lib\Gateway\FidelitySMS.dll</HintPath>
     </Reference>
-    <Reference Include="IBM.XMS">
-      <HintPath>..\..\..\..\lib\Gateway\IBM.XMS.dll</HintPath>
+    <Reference Include="IBM.XMS, Version=1.1.2.0, Culture=neutral, PublicKeyToken=d2666ab12fca862b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.dll</HintPath>
     </Reference>
-    <Reference Include="IBM.XMS.Client.Impl">
-      <HintPath>..\..\..\..\lib\Gateway\IBM.XMS.Client.Impl.dll</HintPath>
+    <Reference Include="IBM.XMS.Admin">
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.Admin.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Admin.Objects">
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.Admin.Objects.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Client.Impl, Version=1.1.2.0, Culture=neutral, PublicKeyToken=d2666ab12fca862b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.Client.Impl.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Client.WMQ">
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.Client.WMQ.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Comms">
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.Comms.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Comms.RMM">
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.Comms.RMM.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Comms.SSL">
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.Comms.SSL.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Core">
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Formats.JMF">
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.Formats.JMF.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Formats.MFP">
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.Formats.MFP.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Impl">
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.Impl.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Match">
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.Match.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.NLS">
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.NLS.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Provider">
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.Provider.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.SIB">
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.SIB.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.Util">
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.WCF">
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.WCF.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.WCF.NLS">
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.WCF.NLS.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.WMQ">
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.WMQ.dll</HintPath>
+    </Reference>
+    <Reference Include="IBM.XMS.WMQI">
+      <HintPath>..\..\..\..\lib\wmq\IBM.XMS.WMQI.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -155,8 +223,9 @@
     <Reference Include="TwilioSMSGateway">
       <HintPath>..\..\..\..\lib\Gateway\TwilioSMSGateway.dll</HintPath>
     </Reference>
-    <Reference Include="WMQMessageListener">
-      <HintPath>..\..\..\..\lib\Gateway\WMQMessageListener.dll</HintPath>
+    <Reference Include="WMQMessageListener, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\wmq\WMQMessageListener.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

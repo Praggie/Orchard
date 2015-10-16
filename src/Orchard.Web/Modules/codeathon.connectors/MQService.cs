@@ -27,6 +27,7 @@ namespace codeathon.connectors
         private readonly IOrchardServices orchardServices;
         private readonly ITransactionManager transactionManager;
         private readonly IWorkflowManager workflowManager;
+        private bool isConnected;
 
         public MQService(IWorkflowManager workflowManager,
             IOrchardServices orchardServices,
@@ -39,8 +40,9 @@ namespace codeathon.connectors
 
         public void Connect()
         {
-
-            using (new Impersonator("ivmapp", "Inla214846", "Password@1"))
+            if (isConnected)
+                return;
+            using (new Impersonator("ivmapp", "GBVB519165", "Password@1"))
             {
                 MessageListener.WMQClient.QueueConfiguration config = new MessageListener.WMQClient.QueueConfiguration("ent-hubdev1_svc.uk.fid-intl.com", 54371, "CH01.CLIENT.ENTH2D1", "ENTH2D1");
                 factory = new WMQFactory(config);
@@ -52,6 +54,8 @@ namespace codeathon.connectors
                 MessageListener.WMQClient.QueueConfiguration desconfig = new MessageListener.WMQClient.QueueConfiguration("ent-hubdev1_svc.uk.fid-intl.com", 54371, "CH01.CLIENT.ENTH2D1", "ENTH2D1");
                 destinationFactory = new WMQFactory(desconfig);
                 destinationConnection = destinationFactory.CreateConnection();
+                this.isConnected = true;
+
             }
         }
 

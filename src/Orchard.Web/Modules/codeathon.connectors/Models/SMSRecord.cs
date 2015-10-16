@@ -12,7 +12,6 @@ namespace codeathon.connectors.Models
     {
         public virtual int Index { get; set; }
 
-        public virtual DateTime DateInserted { get; set; }
 
         public virtual string MessageSid { get; set; }
 
@@ -53,7 +52,6 @@ namespace codeathon.connectors.Models
 
         public int Index { get { return Retrieve(r => r.Index); } set { Store(r => r.Index, value); } }
         public string MessageSid { get { return Retrieve(r => r.MessageSid); } set { Store(r => r.MessageSid, value); } }
-        public DateTime DateInserted { get { return Retrieve(r => r.DateInserted); } set { Store(r => r.DateInserted, value); } }
         public string From { get { return Retrieve(r => r.From); } set { Store(r => r.From, value); } }
         public string To { get { return Retrieve(r => r.To); } set { Store(r => r.To, value); } }
         public string Body { get { return Retrieve(r => r.Body); } set { Store(r => r.Body, value); } }

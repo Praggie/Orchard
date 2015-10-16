@@ -1,17 +1,51 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using codeathon.connectors.Models;
 using Orchard.ContentManagement.Drivers;
 using Orchard.ContentManagement.MetaData;
 using Orchard.ContentManagement.MetaData.Builders;
 using Orchard.Core.Contents.Extensions;
 using Orchard.Data.Migration;
+using codeathon.connectors.Models;
 
 namespace codeathon.connectors {
     public class Migrations : DataMigrationImpl {
 
         public int Create() {
+			// Creating table ShortMessageRecord
+			SchemaBuilder.CreateTable("ShortMessageRecord", table => table
+				.ContentPartRecord()
+				.Column("MessageId", DbType.String)
+				.Column("Message", DbType.String)
+				.Column("MessagePriority", DbType.String)
+				.Column("NotificationRequired", DbType.Boolean)
+				.Column("EmailMessageSendTo", DbType.String)
+				.Column("SMSMessageSendTo", DbType.String)
+				.Column("TwitterMessageSendTo", DbType.String)
+				.Column("TargetQueue", DbType.String)
+			);
+
+			// Creating table SMSRecord
+			SchemaBuilder.CreateTable("SMSRecord", table => table
+				.ContentPartRecord()
+				.Column("Index", DbType.Int32)
+				.Column("MessageSid", DbType.String)
+				.Column("From", DbType.String)
+				.Column("To", DbType.String)
+				.Column("Body", DbType.String)
+				.Column("MessageStatus", DbType.String)
+				.Column("ErrorCode", DbType.String)
+				.Column("FromCity", DbType.String)
+				.Column("FromState", DbType.String)
+				.Column("FromZip", DbType.String)
+				.Column("FromCountry", DbType.String)
+				.Column("ToCity", DbType.String)
+				.Column("ToState", DbType.String)
+				.Column("ToZip", DbType.String)
+				.Column("ToCountry", DbType.String)
+				.Column("Direction", DbType.String)
+			);
+
 			// Creating table TweetRecord
 			SchemaBuilder.CreateTable("TweetRecord", table => table
 				.ContentPartRecord()
@@ -24,6 +58,8 @@ namespace codeathon.connectors {
 				.Column("Source", DbType.String)
 				.Column("Text", DbType.String)
 				.Column("UserMentionsCount", DbType.Int32)
+				.Column("CreatedBy", DbType.String)
+				.Column("CreatedById", DbType.String)
 			);
 
             ContentDefinitionManager.AlterPartDefinition("TweetPart", builder => builder.Attachable());
@@ -33,31 +69,6 @@ namespace codeathon.connectors {
                .WithPart("CommonPart")
                .WithPart("TweetPart")
             .DisplayedAs("Tweet"));
-            return 1;
-        }
-
-        public int UpdateFrom1()
-        {
-            SchemaBuilder.AlterTable("TweetRecord", table => table
-                .AddColumn("CreatedBy", DbType.String));
-            SchemaBuilder.AlterTable("TweetRecord", table => table
-                .AddColumn("CreatedById", DbType.String)
-           );
-            return 2;
-        }
-
-        public int UpdateFrom2()
-        {
-            SchemaBuilder.CreateTable("ShortMessageRecord", table => table
-                 .ContentPartRecord()
-                 .Column("MessageId", DbType.String)
-                 .Column("Message", DbType.String)
-                 .Column("Priority", DbType.String)
-                 .Column("EmailSendTo", DbType.String)
-                 .Column("SMSSendTo", DbType.String)
-                 .Column("TwitterSendTo", DbType.String)
-                 .Column("TargetSystem", DbType.String)
-           );
 
             ContentDefinitionManager.AlterPartDefinition("ShortMessagePart", builder => builder.Attachable());
 
@@ -66,40 +77,16 @@ namespace codeathon.connectors {
                .WithPart("CommonPart")
                .WithPart("ShortMessagePart")
             .DisplayedAs("MessageRequest"));
-            return 3;
-        }
-
-        public int UpdateFrom3()
-        {
-            SchemaBuilder.CreateTable("SMSRecord", table => table
-                 .ContentPartRecord()
-                 .Column("Index", DbType.Int32)
-                 .Column("DateInserted", DbType.DateTime)
-                 .Column("MessageSid", DbType.String)
-                 .Column("From", DbType.String)
-                 .Column("To", DbType.String)
-                 .Column("Body", DbType.String)
-                 .Column("MessageStatus", DbType.String)
-                 .Column("ErrorCode", DbType.String)
-                 .Column("FromCity", DbType.String)
-                 .Column("FromState", DbType.String)
-                 .Column("FromZip", DbType.String)
-                 .Column("FromCountry", DbType.String)
-                 .Column("ToCity", DbType.String)
-                 .Column("ToState", DbType.String)
-                 .Column("ToZip", DbType.String)
-                 .Column("ToCountry", DbType.String)
-                 .Column("Direction", DbType.String)
-           );
 
             ContentDefinitionManager.AlterPartDefinition("SMSPart", builder => builder.Attachable());
 
-            ContentDefinitionManager.AlterTypeDefinition(TweetPart.ContentItemTypeName,
+            ContentDefinitionManager.AlterTypeDefinition(SMSPart.ContentItemTypeName,
             cfg => cfg
                .WithPart("CommonPart")
                .WithPart("SMSPart")
             .DisplayedAs("SMS"));
-            return 4;
+
+            return 1;
         }
     }
 }
