@@ -66,27 +66,45 @@ namespace codeathon.connectors.Handlers
             {
 
                 this.transactionManager.Demand();
+                try
+                {
 
-                var contentManager = this.orchardServices.ContentManager;
-                var smsAlreadyInDB = contentManager.Query<SMSPart, SMSRecord>()
-                                  .OrderBy(tw => tw.Index)
-                                      .ForType(new[] { "SMS" }).List().LastOrDefault();
-                Task<JsonResponse> result = null;
-                RestClientService restClientService = new RestClientService();
-                if (smsAlreadyInDB == null || smsAlreadyInDB.Index == 0)
-                {
-                    result = restClientService.GetResponseAsync();
-                    result.Wait();
-                    var messages = result.Result.Messages;
-                    RaiseWorkflow(messages);
+                    var contentManager = this.orchardServices.ContentManager;
+                    var smsAlreadyInDB = contentManager.Query<SMSPart, SMSRecord>()
+                                      .OrderBy(tw => tw.Index)
+                                          .ForType(new[] { "SMS" }).List().LastOrDefault();
+                    Task<JsonResponse> result = null;
+                    RestClientService restClientService = new RestClientService();
+                    if (smsAlreadyInDB == null || smsAlreadyInDB.Index == 0)
+                    {
+                        result = restClientService.GetResponseAsync();
+                        result.Wait();
+                        var messages = result.Result.Messages;
+                        RaiseWorkflow(messages);
+                    }
+                    else
+                    {
+                        result = restClientService.GetResponseAsync(smsAlreadyInDB.Index);
+                        result.Wait();
+                        var messages = result.Result.Messages;
+                        RaiseWorkflow(messages);
+
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    result = restClientService.GetResponseAsync(smsAlreadyInDB.Index);
-                    result.Wait();
-                    var messages = result.Result.Messages;
-                    RaiseWorkflow(messages);
-                    
+
+                    this.transactionManager.Cancel();
+
+                    this.Logger.Error(e, e.Message);
+
+                    // We need a new transaction for storing the imapSetting
+                    this.transactionManager.RequireNew();
+                }
+                finally
+                {
+                    DateTime nextTaskDate = DateTime.UtcNow.AddMinutes(PeriodInMinutes);
+                    this.ScheduleNextTask(nextTaskDate);
                 }
             }
         }
