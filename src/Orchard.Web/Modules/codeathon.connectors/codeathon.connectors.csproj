@@ -310,6 +310,10 @@
     <Compile Include="Services\TextToSppechFileService.cs" />
     <Compile Include="Services\ITextToSppechFileService.cs" />
     <Compile Include="SMSService.cs" />
+    <Compile Include="Handlers\GatwaySMSPartHandler.cs" />
+    <Compile Include="Drivers\GatwaySMSPartDriver.cs" />
+    <Compile Include="Models\GatwaySMSPart.cs" />
+    <Compile Include="Models\GatwaySMSPartRecord.cs" />
     <Compile Include="TwitterService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -322,6 +326,8 @@
     <Content Include="Views\Parts\Tweet.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Parts\GatwaySMSPart.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\GatwaySMSPart.cshtml" />
     <Content Include="Placement.Info" />
   </ItemGroup>
   <PropertyGroup>

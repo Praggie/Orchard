@@ -1,0 +1,45 @@
+@model codeathon.connectors.Models.GatwaySMSPart
+@using Orchard.ContentManagement;
+
+@{ Layout.Title = T("Edit GatwaySMSPart").ToString(); }
+
+<fieldset>
+    <legend>@T("GatwaySMSPart settings")</legend>
+        <div>
+            @Html.LabelFor(m => m.SMSIndex, @T("SMSIndex"))
+            @Html.EditorFor(m => m.SMSIndex)
+            @Html.ValidationMessageFor(m => m.SMSIndex, "*")
+        </div>
+        <div>
+            @Html.LabelFor(m => m.SMSId, @T("SMSId"))
+            @Html.EditorFor(m => m.SMSId)
+            @Html.ValidationMessageFor(m => m.SMSId, "*")
+        </div>
+        <div>
+            @Html.LabelFor(m => m.SMSTo, @T("SMSTo"))
+            @Html.EditorFor(m => m.SMSTo)
+            @Html.ValidationMessageFor(m => m.SMSTo, "*")
+        </div>
+        <div>
+            @Html.LabelFor(m => m.SMSBody, @T("SMSBody"))
+            @Html.EditorFor(m => m.SMSBody)
+            @Html.ValidationMessageFor(m => m.SMSBody, "*")
+        </div>
+        <div>
+            @Html.LabelFor(m => m.SMSStatus, @T("SMSStatus"))
+            @Html.EditorFor(m => m.SMSStatus)
+            @Html.ValidationMessageFor(m => m.SMSStatus, "*")
+        </div>
+        <div>
+            @Html.LabelFor(m => m.SMSError, @T("SMSError"))
+            @Html.EditorFor(m => m.SMSError)
+            @Html.ValidationMessageFor(m => m.SMSError, "*")
+        </div>
+        <div>
+            @Html.LabelFor(m => m.SMSDirection, @T("SMSDirection"))
+            @Html.EditorFor(m => m.SMSDirection)
+            @Html.ValidationMessageFor(m => m.SMSDirection, "*")
+        </div>
+
+</fieldset>
+

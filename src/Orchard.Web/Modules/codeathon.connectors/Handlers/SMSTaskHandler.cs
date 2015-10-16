@@ -68,12 +68,12 @@ namespace codeathon.connectors.Handlers
                 this.transactionManager.Demand();
 
                 var contentManager = this.orchardServices.ContentManager;
-                var smsAlreadyInDB = contentManager.Query<SMSPart, SMSRecord>()
-                                  .OrderBy(tw => tw.Index)
-                                      .ForType(new[] { "SMS" }).List().LastOrDefault();
+                var smsAlreadyInDB = contentManager.Query<GatwaySMSPart, GatwaySMSPartRecord>()
+                                  .OrderBy(tw => tw.SMSIndex)
+                                      .ForType(new[] { "GatwaySMS" }).List().LastOrDefault();
                 Task<JsonResponse> result = null;
                 RestClientService restClientService = new RestClientService();
-                if (smsAlreadyInDB == null || smsAlreadyInDB.Index == 0)
+                if (smsAlreadyInDB == null || smsAlreadyInDB.SMSIndex == 0)
                 {
                     result = restClientService.GetResponseAsync();
                     result.Wait();
@@ -82,7 +82,7 @@ namespace codeathon.connectors.Handlers
                 }
                 else
                 {
-                    result = restClientService.GetResponseAsync(smsAlreadyInDB.Index);
+                    result = restClientService.GetResponseAsync(smsAlreadyInDB.SMSIndex);
                     result.Wait();
                     var messages = result.Result.Messages;
                     RaiseWorkflow(messages);
@@ -97,34 +97,34 @@ namespace codeathon.connectors.Handlers
 
             foreach (var message in messages)
             {
-                var smsContentItem = contentManager.New(SMSPart.ContentItemTypeName);
-                var smsPart = smsContentItem.As<SMSPart>();
+                var smsContentItem = contentManager.New("GatwaySMS");
+                var smsPart = smsContentItem.As<GatwaySMSPart>();
 
                 // I don't know why it is null
                 if (smsPart == null)
                 {
-                    smsPart = new SMSPart();
-                    smsPart.Record = new SMSRecord();
+                    smsPart = new GatwaySMSPart();
+                    smsPart.Record = new GatwaySMSPartRecord();
                     smsContentItem.Weld(smsPart);
                 }
 
-                smsPart.Index = message.Index;
-                // smsPart.DateInserted = message.DateInserted;
-                smsPart.MessageSid = message.MessageSid;
-                smsPart.From = message.From;
-                smsPart.To = message.To;
-                smsPart.Body = message.Body;
-                smsPart.MessageStatus = message.MessageStatus;
-                smsPart.ErrorCode = message.ErrorCode;
-                smsPart.FromCity = message.FromCity;
-                smsPart.FromState = message.FromState;
-                smsPart.FromZip = message.FromZip;
-                smsPart.FromCountry = message.FromCountry;
-                smsPart.ToCity = message.ToCity;
-                smsPart.ToState = message.ToState;
-                smsPart.ToZip = message.ToZip;
-                smsPart.ToCountry = message.ToCountry;
-                smsPart.Direction = message.Direction;
+                smsPart.SMSIndex = message.Index;
+                // smsPart.SMSDateInserted = message.DateInserted;
+                smsPart.SMSId = message.MessageSid;
+                //smsPart.sms = message.From;
+                smsPart.SMSTo = message.To;
+                smsPart.SMSBody = message.Body;
+                smsPart.SMSStatus = message.MessageStatus;
+                smsPart.SMSError = message.ErrorCode;
+                //smsPart.SMSFromCity = message.FromCity;
+                //smsPart.SMSFromState = message.FromState;
+                //smsPart.SMSFromZip = message.FromZip;
+                //smsPart.SMSFromCountry = message.FromCountry;
+                //smsPart.SMSToCity = message.ToCity;
+                //smsPart.SMSToState = message.ToState;
+                //smsPart.SMSToZip = message.ToZip;
+                //smsPart.SMSToCountry = message.ToCountry;
+                smsPart.SMSDirection = message.Direction;
 
                 contentManager.Create(smsContentItem);
                 contentManager.Publish(smsContentItem);
