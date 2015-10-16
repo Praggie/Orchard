@@ -162,6 +162,10 @@
       <HintPath>..\..\..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
       <Private>True</Private>
@@ -170,6 +174,14 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Speech" />
     <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.3, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\aspnetmvc\System.Web.Mvc.dll</HintPath>
@@ -231,6 +243,7 @@
   <ItemGroup>
     <Content Include="Assets.json" />
     <Content Include="Assets\Styles.less" />
+    <Content Include="Global.asax" />
     <Content Include="Styles\Styles.css" />
     <Content Include="Styles\Styles.min.css" />
     <Content Include="Web.config" />
@@ -279,12 +292,18 @@
     <Compile Include="Activities\TweetPrivateMessageReceivedActivity.cs" />
     <Compile Include="Activities\ShortMessageReceivedActivity.cs" />
     <Compile Include="Activities\TweetReceivedActivity.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\WMQController.cs" />
+    <Compile Include="Drivers\SMSPartDriver.cs" />
     <Compile Include="Drivers\ShortMessagePartDriver.cs" />
     <Compile Include="Drivers\TweetPartDriver.cs" />
     <Compile Include="Forms\SendSMSForm.cs" />
     <Compile Include="Forms\SendTweetForm.cs" />
     <Compile Include="Forms\ConvertTextToSpeechForm.cs" />
     <Compile Include="Forms\TextFilterContainsForm.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Handlers\JsonHelper.cs" />
     <Compile Include="Handlers\JsonResponse.cs" />
     <Compile Include="Handlers\RestClientService.cs" />
@@ -292,6 +311,7 @@
     <Compile Include="Handlers\ShortMessageTaskHandler.cs" />
     <Compile Include="Handlers\SMSPartHandler.cs" />
     <Compile Include="Handlers\SMSTaskHandler.cs" />
+    <Compile Include="Handlers\TweetDirtectMessageTaskHandler.cs" />
     <Compile Include="Handlers\TweetTaskHandler.cs" />
     <Compile Include="Handlers\TweetPartHandler.cs" />
     <Compile Include="Impersonator.cs" />
@@ -301,6 +321,7 @@
     <Compile Include="Models\Tweet.cs" />
     <Compile Include="MQBackgroundTask.cs" />
     <Compile Include="MQService.cs" />
+    <Compile Include="Providers\ShortMessageTokenProvider.cs" />
     <Compile Include="Providers\GatewayTokenProvider.cs" />
     <Compile Include="Services\DefaultTweetMessageChannelSelector.cs" />
     <Compile Include="Services\ITweetRelay.cs" />
@@ -317,7 +338,7 @@
     <Compile Include="TwitterService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

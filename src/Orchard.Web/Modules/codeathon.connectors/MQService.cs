@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
+using RestSharp;
 
 
 namespace codeathon.connectors
@@ -42,21 +43,36 @@ namespace codeathon.connectors
         {
             if (isConnected)
                 return;
-            using (new Impersonator("ivmapp", "GBVB519165", "Password@1"))
+
+            using (new Impersonator("ivmapp", "INDA141877", "Password@1"))
+             {
+                 MessageListener.WMQClient.QueueConfiguration config = new MessageListener.WMQClient.QueueConfiguration("ent-hubdev1_svc.uk.fid-intl.com", 54371, "CH01.CLIENT.ENTH2D1", "ENTH2D1");
+                 factory = new WMQFactory(config);
+                 conection = factory.CreateConnection();
+                 WMQMessageObserver obj = new WMQMessageObserver("IM.GLXY.QUICKINS.BACKOUT", conection, "test");
+                 obj.OnMeetingTriggered += obj_OnMeetingTriggered;
+                 obj.StartObserving();
+
+                 MessageListener.WMQClient.QueueConfiguration desconfig = new MessageListener.WMQClient.QueueConfiguration("ent-hubdev1_svc.uk.fid-intl.com", 54371, "CH01.CLIENT.ENTH2D1", "ENTH2D1");
+                 destinationFactory = new WMQFactory(desconfig);
+                 destinationConnection = destinationFactory.CreateConnection();
+                 this.isConnected = true;
+
+             }
+
+           /*  using (new Impersonator("retcoapp", "INDA141877", "nitin123$"))
             {
-                MessageListener.WMQClient.QueueConfiguration config = new MessageListener.WMQClient.QueueConfiguration("ent-hubdev1_svc.uk.fid-intl.com", 54371, "CH01.CLIENT.ENTH2D1", "ENTH2D1");
+                MessageListener.WMQClient.QueueConfiguration config = new MessageListener.WMQClient.QueueConfiguration("msghub-gen-sit.uk.fid-intl.com", 5220, "CH01.CLNT.MQHUBS20", "MQHUBS20");
                 factory = new WMQFactory(config);
                 conection = factory.CreateConnection();
-                WMQMessageObserver obj = new WMQMessageObserver("IM.GLXY.QUICKINS.BACKOUT", conection, "test");
+                WMQMessageObserver obj = new WMQMessageObserver("ENT.CUST_OUT.CODEATHON_TH_CODINGNINJAS.REQ", conection, "test");
                 obj.OnMeetingTriggered += obj_OnMeetingTriggered;
                 obj.StartObserving();
 
-                MessageListener.WMQClient.QueueConfiguration desconfig = new MessageListener.WMQClient.QueueConfiguration("ent-hubdev1_svc.uk.fid-intl.com", 54371, "CH01.CLIENT.ENTH2D1", "ENTH2D1");
+                MessageListener.WMQClient.QueueConfiguration desconfig = new MessageListener.WMQClient.QueueConfiguration("msghub-gen-sit.uk.fid-intl.com", 5220, "CH01.CLNT.MQHUBS20", "MQHUBS20");
                 destinationFactory = new WMQFactory(desconfig);
                 destinationConnection = destinationFactory.CreateConnection();
-                this.isConnected = true;
-
-            }
+            }*/
         }
 
         private void obj_OnMeetingTriggered(object sender, MesssageReceiveddEventArgs e)
@@ -145,10 +161,20 @@ namespace codeathon.connectors
                 () => new Dictionary<string, object> { { "Content", messageContentItem } });          
         }
 
+        public void ProcessRequest(string requestMessage)
+        {
+            FilSmsRequest smsrequest = DeserializeMeetingEvent(requestMessage);
+            if (smsrequest != null)
+            {
+                RaiseWorkFlow(smsrequest);
+            }
+        }
+
     }
 
     public interface IMQService : IDependency
     {
         void Connect();
+        void ProcessRequest(string requestMessage);
     }
 }

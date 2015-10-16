@@ -82,7 +82,7 @@ namespace codeathon.connectors.Handlers
             {
                 using (var httpClient = new HttpClient())
                 {
-                    var httpResponse = await httpClient.GetAsync(string.Format(ApiUrl, lastIndex));
+                    var httpResponse = await httpClient.GetAsync(string.Format(ApiQueryUrl, lastIndex));
 
                     if (httpResponse.IsSuccessStatusCode && httpResponse.Content != null)
                     {

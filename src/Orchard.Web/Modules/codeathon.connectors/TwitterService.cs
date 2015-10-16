@@ -12,7 +12,6 @@ using Tweetinvi.Core.Parameters;
 namespace codeathon.connectors
 {
     public class TwitterService : ITwitterService
-
     {
         public TwitterService()
         {
@@ -39,11 +38,23 @@ namespace codeathon.connectors
             var tweetpublished = Tweet.PublishTweetInReplyTo(textToSend, long.Parse(tweet));
         }
 
-        public void GenerateOmbed(long tweetId) {
-            
+        public void GenerateOmbed(long tweetId)
+        {
             var ombed = Tweet.GenerateOEmbedTweet(tweetId);
         }
 
+        public void ListenPrivateMessage()
+        {
+            var userStream = Stream.CreateUserStream();
+            userStream.MessageReceived += userStream_MessageReceived;
+            userStream.StartStream();
+        }    
+
+        private void userStream_MessageReceived(object sender, Tweetinvi.Core.Events.EventArguments.MessageEventArgs e)
+        {
+            var recipient = User.GetUserFromScreenName(e.Message.MessageDTO.SenderScreenName);
+            // var message = Message.CreateMessage("we have received your message", recipient);                 
+        }
     }
 
     public interface ITwitterService : IDependency
@@ -55,8 +66,6 @@ namespace codeathon.connectors
 
         void SendPrivateMessage(string twitterUserId, string textToSend);
 
-
-
-
+        void ListenPrivateMessage();
     }
 }

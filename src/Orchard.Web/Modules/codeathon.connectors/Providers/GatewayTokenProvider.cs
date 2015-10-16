@@ -35,9 +35,7 @@ namespace codeathon.connectors.Providers
         /// <summary>
         /// The key of CRMCommentPart in the EvaluateContext.Data dictionary
         /// </summary>
-        public const string TweetKey = "Tweet";
-
- 
+        public const string TweetKey = "Tweet"; 
 
         public GatewayTokenProvider(
             IContentManager contentManager
@@ -49,12 +47,10 @@ namespace codeathon.connectors.Providers
 
         public void Describe(DescribeContext context)
         {
-
-            context.For(GatewayTokenProvider.TweetKey, T("Tweet"), T("Tweet"))
+             context.For(GatewayTokenProvider.TweetKey, T("Tweet"), T("Tweet"))
                  .Token("Text", T("Text"), T("Text"))
                  .Token("TweetId", T("TweetId"), T("TweetId"))
                  .Token("CreatedBy", T("CreatedBy"), T("CreatedBy"));
-
         }
 
         public void Evaluate(EvaluateContext context)

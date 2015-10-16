@@ -25,8 +25,6 @@ namespace codeathon.connectors
             ISMSGateway twilioSmsGateway = new TwilioProxy();
             var message = twilioSmsGateway.SendMessage(smsUserId, textToSend);
         }
-
-
     }
 
     public interface ISMSService: IDependency
