@@ -1,24 +1,18 @@
-﻿using System;
+﻿using codeathon.connectors.Activities;
+using codeathon.connectors.Models;
+using IBM.XMS;
+using MessageListener;
+using MessageListener.MeetingObserver.WMQObserver;
+using MessageListener.WMQClient;
+using Orchard;
+using Orchard.ContentManagement;
+using Orchard.Data;
+using Orchard.Tasks.Scheduling;
+using Orchard.Workflows.Services;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
-using Orchard;
-using Tweetinvi;
-using Tweetinvi.Core.Credentials;
-using Tweetinvi.Core.Parameters;
-using MessageListener.WMQClient;
-using MessageListener.MeetingObserver.WMQObserver;
-using MessageListener;
-using IBM.XMS;
-using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
-using codeathon.connectors.Models;
-using Tweetinvi.Core.Interfaces;
 
 
 namespace codeathon.connectors
@@ -29,15 +23,23 @@ namespace codeathon.connectors
         private IConnection conection;
         private IMQFactory destinationFactory;
         private IConnection destinationConnection;
+        private readonly IScheduledTaskManager _taskManager;
+        private readonly IOrchardServices orchardServices;
+        private readonly ITransactionManager transactionManager;
+        private readonly IWorkflowManager workflowManager;
 
-        public MQService()
+        public MQService(IWorkflowManager workflowManager,
+            IOrchardServices orchardServices,
+            ITransactionManager transactionManager)
         {
-            //MQ initalization
+            this.transactionManager = transactionManager;
+            this.workflowManager = workflowManager;
+            this.orchardServices = orchardServices;
         }
 
         public void Connect()
         {
-                        
+
             using (new Impersonator("ivmapp", "Inla214846", "Password@1"))
             {
                 MessageListener.WMQClient.QueueConfiguration config = new MessageListener.WMQClient.QueueConfiguration("ent-hubdev1_svc.uk.fid-intl.com", 54371, "CH01.CLIENT.ENTH2D1", "ENTH2D1");
@@ -59,8 +61,7 @@ namespace codeathon.connectors
             FilSmsRequest smsrequest = DeserializeMeetingEvent(e.Message.Text);
             if (smsrequest != null)
             {
-                ShortMessagePart shortMessagePart = this.ConvertToShortMessagepart(smsrequest);
-                //RaiseWorkFlow
+                RaiseWorkFlow(smsrequest);     
             }
         }
 
@@ -73,54 +74,71 @@ namespace codeathon.connectors
             return meetingEvent;
         }
 
-        private ShortMessagePart ConvertToShortMessagepart(FilSmsRequest filSmsRequest)
+        private void RaiseWorkFlow(FilSmsRequest filSmsRequest)
         {
-            ShortMessagePart part = new ShortMessagePart();
+            var contentManager = this.orchardServices.ContentManager;
+
+            var messageContentItem = contentManager.New(ShortMessagePart.ContentItemTypeName);
+            var messagePart = messageContentItem.As<ShortMessagePart>();
+
+            if (messagePart == null)
+            {
+                messagePart = new ShortMessagePart();
+                messagePart.Record = new ShortMessageRecord();
+                messageContentItem.Weld(messagePart);
+            }
+
             if (filSmsRequest.body != null)
             {
                 if (filSmsRequest.body.priority != null)
                 {
-                    part.MessagePriority = filSmsRequest.body.priority.ToString();
+                    messagePart.MessagePriority = filSmsRequest.body.priority.ToString();
                 }
 
                 if (filSmsRequest.body.content != null)
                 {
-                    part.MessagePriority = filSmsRequest.body.content.Value;
+                    messagePart.Message = filSmsRequest.body.content.Value;
                 }
 
                 if (filSmsRequest.body.notificationTarget != null && filSmsRequest.body.notificationTarget.queue != null)
                 {
-                    part.TargetQueue = filSmsRequest.body.notificationTarget.queue;
+                    messagePart.TargetQueue = filSmsRequest.body.notificationTarget.queue;
                 }
 
                 if (filSmsRequest.body.deliveryChannels != null && filSmsRequest.body.deliveryChannels.Count() > 0)
                 {
-                    var channel = filSmsRequest.body.deliveryChannels.SingleOrDefault(o => string.Compare(o.to, "1", true) == 0);
+                    var channel = filSmsRequest.body.deliveryChannels.SingleOrDefault(o => string.Compare(o.id, "1", true) == 0);
                     if (channel != null)
                     {
-                        part.SMSMessageSendTo = channel.to;
+                        messagePart.SMSMessageSendTo = channel.to;
                     }
 
-                    channel = filSmsRequest.body.deliveryChannels.SingleOrDefault(o => string.Compare(o.to, "2", true) == 0);
+                    channel = filSmsRequest.body.deliveryChannels.SingleOrDefault(o => string.Compare(o.id, "2", true) == 0);
                     if (channel != null)
                     {
-                        part.EmailMessageSendTo = channel.to;
+                        messagePart.EmailMessageSendTo = channel.to;
                     }
 
-                    channel = filSmsRequest.body.deliveryChannels.SingleOrDefault(o => string.Compare(o.to, "3", true) == 0);
+                    channel = filSmsRequest.body.deliveryChannels.SingleOrDefault(o => string.Compare(o.id, "3", true) == 0);
                     if (channel != null)
                     {
-                        part.TwitterMessageSendTo = channel.to;
+                        messagePart.TwitterMessageSendTo = channel.to;
                     }
                 }
 
                 if (filSmsRequest.header != null)
                 {
-                    part.MessageId = filSmsRequest.header.messageId;
+                    messagePart.MessageId = filSmsRequest.header.messageId;
                 }
             }
-            
-            return part;
+
+            contentManager.Create(messageContentItem);
+            contentManager.Publish(messageContentItem);
+
+            workflowManager.TriggerEvent(
+                ShortMessageReceivedActivity.ActivityName,
+                messageContentItem,
+                () => new Dictionary<string, object> { { "Content", messageContentItem } });          
         }
 
     }
