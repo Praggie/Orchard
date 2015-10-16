@@ -1,12 +1,21 @@
 ﻿using System;
+using System.Linq;
 using Orchard;
+using Orchard.Environment.Features;
 using Orchard.Forms.Services;
 
-namespace codeathon.connectors.Folder {
+namespace codeathon.connectors.Forms {
     public class SendTweetForm : Component, IFormProvider, IFormEventHandler
     {
+        private readonly IFeatureManager _featureManager;
+        public SendTweetForm(IFeatureManager featureManager)
+        {
+            _featureManager = featureManager;
+        }
         void IFormProvider.Describe(DescribeContext context)
         {
+            var jobsQueueEnabled = _featureManager.GetEnabledFeatures().Any(x => x.Id == "Orchard.JobsQueue");
+
             context.Form("SendTweet", factory => {
                 var shape = (dynamic)factory;
                 var form = shape.Form(
@@ -36,7 +45,24 @@ namespace codeathon.connectors.Folder {
                         Description: T("Check to send tweet as PM."),
                         Value: true));
 
-            return form;
+                if (jobsQueueEnabled)
+                {
+                    form._Queued(shape.Checkbox(
+                            Id: "Queued", Name: "Queued",
+                            Title: T("Queued"),
+                            Checked: false, Value: "true",
+                            Description: T("Check send it as a queued job.")));
+
+                    form._Priority(shape.Textbox(
+                            Id: "priority",
+                            Name: "Priority",
+                            Title: T("Priority"),
+                            Classes: new[] { "text", "large", "tokenized" },
+                            Description: ("The priority of this message.")
+                        ));
+
+                }
+                return form;
             });
         }
 

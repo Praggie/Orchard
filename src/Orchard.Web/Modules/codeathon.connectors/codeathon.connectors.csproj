@@ -184,6 +184,10 @@
       <Project>{642A49D7-8752-4177-80D6-BFBBCFAD3DE0}</Project>
       <Name>Orchard.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Orchard.JobsQueue\Orchard.JobsQueue.csproj">
+      <Project>{085948ff-0e9b-4a9a-b564-f8b8b4bdddbc}</Project>
+      <Name>Orchard.JobsQueue</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Orchard.MediaLibrary\Orchard.MediaLibrary.csproj">
       <Project>{73a7688a-5bd3-4f7e-adfa-ce36c5a10e3b}</Project>
       <Name>Orchard.MediaLibrary</Name>
@@ -198,6 +202,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\ConvertTextToSpeechActivity.cs" />
     <Compile Include="Activities\SendSMSActivity.cs" />
     <Compile Include="Activities\SendTweetActivity.cs" />
     <Compile Include="Activities\TextFilterContainsActivity.cs" />
@@ -219,6 +224,11 @@
     <Compile Include="MQBackgroundTask.cs" />
     <Compile Include="MQService.cs" />
     <Compile Include="Providers\GatewayTokenProvider.cs" />
+    <Compile Include="Services\DefaultTweetMessageChannelSelector.cs" />
+    <Compile Include="Services\ITweetRelay.cs" />
+    <Compile Include="Services\ISMSRelay.cs" />
+    <Compile Include="Services\TweetMessageChannel.cs" />
+    <Compile Include="Services\SMSMessageChannel.cs" />
     <Compile Include="Services\TextToSppechFileService.cs" />
     <Compile Include="Services\ITextToSppechFileService.cs" />
     <Compile Include="SMSService.cs" />
