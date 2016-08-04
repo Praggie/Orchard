@@ -1,0 +1,71 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Orchard;
+using Tweetinvi;
+using Tweetinvi.Core.Credentials;
+using Tweetinvi.Core.Parameters;
+
+namespace codeathon.connectors
+{
+    public class TwitterService : ITwitterService
+    {
+        public TwitterService()
+        {
+          //  TwitterCredentials tc = new TwitterCredentials(ConfigurationManager.AppSettings["APIKey"], ConfigurationManager.AppSettings["APISecret"], ConfigurationManager.AppSettings["AccessToken"], ConfigurationManager.AppSettings["AccessTokenSecret"]);
+          //  Auth.SetUserCredentials(ConfigurationManager.AppSettings["APIKey"], ConfigurationManager.AppSettings["APISecret"], ConfigurationManager.AppSettings["AccessToken"], ConfigurationManager.AppSettings["AccessTokenSecret"]);
+          //  Auth.ApplicationCredentials = tc;
+        }
+        public void SendTweet(string twitterUserId, string textToSend)
+        {
+            throw new NotImplementedException();
+        }
+        public void SendPrivateMessage(string twitterUserId, string textToSend)
+        {
+            var message = Message.PublishMessage(textToSend, twitterUserId);
+
+        }
+        public void ReplyToTweet(string tweet, string textToSend)
+        {
+
+            var publishParameter = new PublishTweetParameters("textToSend", new PublishTweetOptionalParameters
+            {
+
+            });
+            var tweetpublished = Tweet.PublishTweetInReplyTo(textToSend, long.Parse(tweet));
+        }
+
+        public void GenerateOmbed(long tweetId)
+        {
+            var ombed = Tweet.GenerateOEmbedTweet(tweetId);
+        }
+
+        public void ListenPrivateMessage()
+        {
+            var userStream = Stream.CreateUserStream();
+            userStream.MessageReceived += userStream_MessageReceived;
+            userStream.StartStream();
+        }    
+
+        private void userStream_MessageReceived(object sender, Tweetinvi.Core.Events.EventArguments.MessageEventArgs e)
+        {
+            var recipient = User.GetUserFromScreenName(e.Message.MessageDTO.SenderScreenName);
+            // var message = Message.CreateMessage("we have received your message", recipient);                 
+        }
+    }
+
+    public interface ITwitterService : IDependency
+    {
+
+        void SendTweet(string twitterUserId, string textToSend);
+
+        void ReplyToTweet(string tweet, string textToSend);
+
+        void SendPrivateMessage(string twitterUserId, string textToSend);
+
+        void ListenPrivateMessage();
+    }
+}
