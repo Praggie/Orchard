@@ -11,121 +11,123 @@ namespace codeathon.connectors.Models {
         /// The type of the activity
         /// [message|contactRelationUpdate|converationUpdate|typing]
         /// </summary>
-        public string Type { get; set; }
+        public virtual string Type { get; set; }
 
         /// <summary>
         /// Id for the activity
         /// </summary>
-        public string Id { get; set; }
+        public virtual string ActivityId { get; set; }
 
         /// <summary>
         /// Time when message was sent
         /// </summary>
-        public DateTime? Timestamp { get; set; }
+        public virtual DateTime? Timestamp { get; set; }
 
         /// <summary>
         /// Service endpoint
         /// </summary>
-        public string ServiceUrl { get; set; }
+        public virtual string ServiceUrl { get; set; }
 
         /// <summary>
         /// ChannelId the activity was on
         /// </summary>
-        public string ChannelId { get; set; }
+        public virtual string ChannelId { get; set; }
 
         /// <summary>
         /// Sender address
         /// </summary>
-        public ChannelAccount From { get; set; }
+        public virtual ChannelAccount From { get; set; }
 
         /// <summary>
         /// Conversation
         /// </summary>
-        public ConversationAccount Conversation { get; set; }
+        public virtual ConversationAccount Conversation { get; set; }
 
         /// <summary>
         /// (Outbound to bot only) Bot's address that received the message
         /// </summary>
-        public ChannelAccount Recipient { get; set; }
+        public virtual ChannelAccount Recipient { get; set; }
 
         /// <summary>
         /// Format of text fields [plain|markdown] Default:markdown
         /// </summary>
-        public string TextFormat { get; set; }
+        public virtual string TextFormat { get; set; }
 
         /// <summary>
         /// AttachmentLayout - hint for how to deal with multiple attachments
         /// Values: [list|carousel] Default:list
         /// </summary>
-        public string AttachmentLayout { get; set; }
+        public virtual string AttachmentLayout { get; set; }
 
         /// <summary>
         /// Array of address added
         /// </summary>
-        public IList<ChannelAccount> MembersAdded { get; set; }
+        public virtual IList<ChannelAccount> MembersAdded { get; set; }
 
         /// <summary>
         /// Array of addresses removed
         /// </summary>
-        public IList<ChannelAccount> MembersRemoved { get; set; }
+        public virtual IList<ChannelAccount> MembersRemoved { get; set; }
 
         /// <summary>
         /// Conversations new topic name
         /// </summary>
-        public string TopicName { get; set; }
+        public virtual string TopicName { get; set; }
 
         /// <summary>
         /// the previous history of the channel was disclosed
         /// </summary>
-        public bool? HistoryDisclosed { get; set; }
+        public virtual bool? HistoryDisclosed { get; set; }
 
         /// <summary>
         /// The language code of the Text field
         /// </summary>
-        public string Locale { get; set; }
+        public virtual string Locale { get; set; }
 
         /// <summary>
         /// Content for the message
         /// </summary>
-        public string Text { get; set; }
+        public virtual string Text { get; set; }
 
         /// <summary>
         /// Text to display if you can't render cards
         /// </summary>
-        public string Summary { get; set; }
+        public virtual string Summary { get; set; }
 
         /// <summary>
         /// Attachments
         /// </summary>
-        public IList<Attachment> Attachments { get; set; }
+      //  public virtual IList<Attachment> Attachments { get; set; }
 
         /// <summary>
         /// Entities
         /// Collection of Entity which contain metadata about this activity
         /// (each is typed)
         /// </summary>
-        public IList<Entity> Entities { get; set; }
+      //  public virtual IList<Entity> Entities { get; set; }
 
         /// <summary>
         /// Channel specific payload
         /// </summary>
-        public object ChannelData { get; set; }
+      //  public virtual object ChannelData { get; set; }
 
         /// <summary>
         /// ContactAdded/Removed action
         /// </summary>
-        public string Action { get; set; }
+        public virtual string Action { get; set; }
 
         /// <summary>
         /// the original id this message is a response to
         /// </summary>
-        public string ReplyToId { get; set; }
+        public virtual string ReplyToId { get; set; }
 
     }
 
 
     public class ActivityPart : ContentPart<ActivityRecord>
     {
+        internal static readonly string ContentItemTypeName = "BotActivity";
+
         /// <summary>
         /// The type of the activity
         /// [message|contactRelationUpdate|converationUpdate|typing]
@@ -135,7 +137,7 @@ namespace codeathon.connectors.Models {
         /// <summary>
         /// Id for the activity
         /// </summary>
-        public string Id {  get{return Retrieve(r => r.Id);} set{Store(r => r.Id, value);} }
+        public string ActivityId {  get{return Retrieve(r => r.ActivityId);} set{Store(r => r.ActivityId, value);} }
 
         /// <summary>
         /// Time when message was sent
@@ -155,17 +157,52 @@ namespace codeathon.connectors.Models {
         /// <summary>
         /// Sender address
         /// </summary>
-        public ChannelAccount From {  get{return Retrieve(r => r.From);} set{Store(r => r.From, value);} }
+        public ChannelAccount From
+        {
+            get
+            {
+                var rawAccountRecord = Retrieve<string>("ChannelAccountFrom");
+                return ChannelAccount.DeserializeChannelAccount(rawAccountRecord);
+            }
+            set
+            {
+                var serializedAccountRecord = ChannelAccount.SerializeChannelAccount(value);
+                Store("ChannelAccountFrom", serializedAccountRecord);
+            }
+        }
 
         /// <summary>
         /// Conversation
         /// </summary>
-        public ConversationAccount Conversation {  get{return Retrieve(r => r.Conversation);} set{Store(r => r.Conversation, value);} }
+        public ConversationAccount Conversation {
+            get
+            {
+                var rawAccountRecord = Retrieve<string>("ConversationAccount");
+                return ConversationAccount.DeserializeConversationAccount(rawAccountRecord);
+            }
+            set
+            {
+                var serializedAccountRecord = ConversationAccount.SerializeConversationAccount(value);
+                Store("ConversationAccount", serializedAccountRecord);
+            }
+        }
 
         /// <summary>
         /// (Outbound to bot only) Bot's address that received the message
         /// </summary>
-        public ChannelAccount Recipient {  get{return Retrieve(r => r.Recipient);} set{Store(r => r.Recipient, value);} }
+        public ChannelAccount Recipient
+        {
+            get
+            {
+                var rawAccountRecord = Retrieve<string>("ChannelAccountRecipient");
+                return ChannelAccount.DeserializeChannelAccount(rawAccountRecord);
+            }
+            set
+            {
+                var serializedAccountRecord = ChannelAccount.SerializeChannelAccount(value);
+                Store("ChannelAccountRecipient", serializedAccountRecord);
+            }
+        }
 
         /// <summary>
         /// Format of text fields [plain|markdown] Default:markdown
@@ -216,19 +253,19 @@ namespace codeathon.connectors.Models {
         /// <summary>
         /// Attachments
         /// </summary>
-        public IList<Attachment> Attachments {  get{return Retrieve(r => r.Attachments);} set{Store(r => r.Attachments, value);} }
+       // public IList<Attachment> Attachments {  get{return Retrieve(r => r.Attachments);} set{Store(r => r.Attachments, value);} }
 
         /// <summary>
         /// Entities
         /// Collection of Entity which contain metadata about this activity
         /// (each is typed)
         /// </summary>
-        public IList<Entity> Entities {  get{return Retrieve(r => r.Entities);} set{Store(r => r.Entities, value);} }
+      //  public IList<Entity> Entities {  get{return Retrieve(r => r.Entities);} set{Store(r => r.Entities, value);} }
 
         /// <summary>
         /// Channel specific payload
         /// </summary>
-        public object ChannelData {  get{return Retrieve(r => r.ChannelData);} set{Store(r => r.ChannelData, value);} }
+       // public object ChannelData {  get{return Retrieve(r => r.ChannelData);} set{Store(r => r.ChannelData, value);} }
 
         /// <summary>
         /// ContactAdded/Removed action
@@ -241,4 +278,71 @@ namespace codeathon.connectors.Models {
         public string ReplyToId {  get{return Retrieve(r => r.ReplyToId);} set{Store(r => r.ReplyToId, value);} }
 
     }
+
+    public class ChannelAccount
+    {
+        public virtual string Id { get; set; }
+        public virtual string Name { get; set; }
+
+        public static ChannelAccount DeserializeChannelAccount(string rawChannelAccount)
+        {
+            if (rawChannelAccount == null)
+            {
+                return new ChannelAccount();
+            }
+
+            var channelAccountArray = rawChannelAccount.Split(new[] { ',' });
+
+            return new ChannelAccount()
+            {
+                Id = channelAccountArray[0],
+                Name = channelAccountArray[1]
+            };
+        }
+
+        public static string SerializeChannelAccount(ChannelAccount channelAccount)
+        {
+            if (channelAccount == null)
+            {
+                return "";
+            }
+
+            return String.Join(",", channelAccount.Id, channelAccount.Name);
+        }
+    }
+
+    public class ConversationAccount
+    {
+        public virtual string Id { get; set; }
+        public virtual bool IsGroup { get; set; }
+        public virtual string Name { get; set; }
+
+        public static ConversationAccount DeserializeConversationAccount(string rawConversationAccount)
+        {
+            if (rawConversationAccount == null)
+            {
+                return new ConversationAccount();
+            }
+
+            var conversationAccountArray = rawConversationAccount.Split(new[] { ',' });
+
+            return new ConversationAccount()
+            {
+                Id = conversationAccountArray[0],
+                IsGroup = Boolean.Parse(conversationAccountArray[1]),
+                Name = conversationAccountArray[2]
+            };
+        }
+
+        public static string SerializeConversationAccount(ConversationAccount conversationAccount)
+        {
+            if (conversationAccount == null)
+            {
+                return "";
+            }
+
+            return String.Join(",", conversationAccount.Id, conversationAccount.IsGroup, conversationAccount.Name);
+        }
+    }
+
 }

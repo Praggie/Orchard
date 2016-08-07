@@ -49,7 +49,7 @@ namespace codeathon.connectors.Providers
         {
              context.For(ActivityTokenProvider.ActivityKey, T("Activity"), T("Activity"))
                  .Token("Text", T("Text"), T("Text"))
-                 .Token("Id", T("Id"), T("Id"))
+                 .Token("ActivityId", T("ActivityId"), T("ActivityId"))
                  .Token("ReplyToId", T("ReplyToId"), T("ReplyToId"))
                  .Token("ChannelId", T("ChannelId"), T("ChannelId"))
                  .Token("ServiceUrl", T("ServiceUrl"), T("ServiceUrl"))
@@ -88,45 +88,15 @@ namespace codeathon.connectors.Providers
             }
 
             context.For(ActivityTokenProvider.ActivityKey, () => this.GetPart<ActivityPart>(context))
-                .Token("Text", contextParameter =>
-                {
-                    return part.Text;
-                }).Token("Type", contextParameter =>
-                {
-                    return part.Type;
-                })
-                .Token("ReplyToId", contextParameter =>
-                {
-                    return part.ReplyToId;
-                })
-                 .Token("ChannelId", contextParameter =>
-                 {
-                     return part.ChannelId;
-                 })
-                  .Token("ServiceUrl", contextParameter =>
-                  {
-                      return part.ServiceUrl;
-                  })
-                   .Token("TextFormat", contextParameter =>
-                   {
-                       return part.TextFormat;
-                   })
-                   .Token("TextFormat", contextParameter =>
-                   {
-                       return part.AttachmentLayout;
-                   })
-                   .Token("ConversationId", contextParameter =>
-                   {
-                       return part.Conversation.Id;
-                   })
-                   .Token("ConversationName", contextParameter =>
-                   {
-                       return part.Conversation.Name;
-                   })
-               .Token("Id", contextParameter =>
-               {
-                   return part.Id;
-               });
+                .Token("Text", contextParameter => part.Text).Token("Type", contextParameter => part.Type)
+                .Token("ReplyToId", contextParameter => part.ReplyToId)
+                 .Token("ChannelId", contextParameter => part.ChannelId)
+                  .Token("ServiceUrl", contextParameter => part.ServiceUrl)
+                   .Token("TextFormat", contextParameter => part.TextFormat)
+                   .Token("AttachmentLayout", contextParameter => part.AttachmentLayout)
+                   .Token("ConversationId", contextParameter => part.Conversation.Id)
+                   .Token("ConversationName", contextParameter => part.Conversation.Name)
+               .Token("ActivityId", contextParameter => part.ActivityId);
         }
 
     }

@@ -1,4 +1,5 @@
 using System;
+using Microsoft.Bot.Connector;
 
 namespace codeathon.connectors {
     public class BotFrameworkService : IBotFrameworkService
@@ -10,8 +11,10 @@ namespace codeathon.connectors {
             //  Auth.ApplicationCredentials = tc;
         }
       
-        public void ReplyWithText(string textToSend) {
-            throw new NotImplementedException();
+        public void ReplyWithText(IMessageActivity textToSend) {
+            var connector = new ConnectorClient(new Uri(textToSend.ServiceUrl));
+            
+            connector.Conversations.SendToConversation((Activity)textToSend);
         }
     }
 }

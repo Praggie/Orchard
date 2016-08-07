@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Bot.Connector;
 using Orchard;
 using Tweetinvi;
 using Tweetinvi.Core.Credentials;
@@ -12,7 +13,7 @@ namespace codeathon.connectors
 {
     public interface IBotFrameworkService : IDependency
     {
-        void ReplyWithText(string textToSend);
+        void ReplyWithText(IMessageActivity textToSend);
 
     }
 }

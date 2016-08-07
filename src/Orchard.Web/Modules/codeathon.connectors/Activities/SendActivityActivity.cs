@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using codeathon.connectors.Models;
 using codeathon.connectors.Services;
+using Microsoft.Bot.Connector;
+using Orchard.ContentManagement;
 using Orchard.JobsQueue.Services;
 using Orchard.Localization;
 using Orchard.Workflows.Models;
@@ -12,12 +15,12 @@ namespace codeathon.connectors.Activities
 {
     public class SendActivityActivity : Task
     {
-        private readonly ITwitterService ActivityService;
+        private readonly IBotFrameworkService ActivityService;
         private readonly IJobsQueueService _jobsQueueService;
-        public SendActivityActivity(ITwitterService twitterService, IJobsQueueService jobsQueueService)
+        public SendActivityActivity(IBotFrameworkService BotFrameworkService, IJobsQueueService jobsQueueService)
         {
             T = NullLocalizer.Instance;
-            ActivityService = twitterService;
+            ActivityService = BotFrameworkService;
             _jobsQueueService = jobsQueueService;
         }
 
@@ -51,9 +54,15 @@ namespace codeathon.connectors.Activities
         public override IEnumerable<LocalizedString> Execute(WorkflowContext workflowContext, ActivityContext activityContext)
         {
             var textToSend = activityContext.GetState<string>("TextToSend");
+            var part = workflowContext.Content.As<ActivityPart>();
+            IMessageActivity newMessage = Activity.CreateMessageActivity();
+            newMessage.Type = ActivityTypes.Message;
+            newMessage.From = new Microsoft.Bot.Connector.ChannelAccount() {Name = part.Recipient.Name, Id = part.Recipient.Id};
+            newMessage.Conversation = new Microsoft.Bot.Connector.ConversationAccount() { Name = part.Conversation.Name, Id = part.Conversation.Id, IsGroup = part.Conversation.IsGroup}; ;
+            newMessage.Recipient = new Microsoft.Bot.Connector.ChannelAccount() { Name = part.From.Name, Id = part.From.Id }; ;
+            newMessage.Text = textToSend;
 
-            var activity =
-                ActivityService.SendPrivateMessage(twitterUser, textToSend);
+            ActivityService.ReplyWithText(newMessage);
             
             yield return T("Done");
         }
