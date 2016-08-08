@@ -61,6 +61,7 @@ namespace codeathon.connectors.Activities
             newMessage.Conversation = new Microsoft.Bot.Connector.ConversationAccount() { Name = part.Conversation.Name, Id = part.Conversation.Id, IsGroup = part.Conversation.IsGroup}; ;
             newMessage.Recipient = new Microsoft.Bot.Connector.ChannelAccount() { Name = part.From.Name, Id = part.From.Id }; ;
             newMessage.Text = textToSend;
+            newMessage.ServiceUrl = part.ServiceUrl;
 
             ActivityService.ReplyWithText(newMessage);
             
