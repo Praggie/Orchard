@@ -8050,7 +8050,7 @@
 
         vm.layoutMode = 'wide';
         //  vm.layoutStyle = $cookies.get('layoutStyle') || 'verticalNavigationFullwidthToolbar';
-        vm.layoutStyle =  'verticalNavigationFullwidthToolbar';
+        vm.layoutStyle = 'contentOnly';
 
         // Methods
         vm.setActiveTheme = setActiveTheme;
@@ -9195,7 +9195,7 @@
 
         // Get active layout
        // var layoutStyle = $cookies.get('layoutStyle') || 'verticalNavigationFullwidthToolbar';
-        var layoutStyle = 'verticalNavigationFullwidthToolbar';
+        var layoutStyle = 'contentOnly';
 
         var layouts = {
             verticalNavigation  : {

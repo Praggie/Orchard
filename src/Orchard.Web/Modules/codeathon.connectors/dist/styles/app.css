@@ -15913,7 +15913,9 @@ body {
   overflow: hidden !important; }
 
 #main-fuse {
-  position: absolute;
+  /*commenting few lines to fit in orchard.*/
+  /*position: absolute;*/
+    min-height: 700px;
   top: 0;
   right: 0;
   bottom: 0;
