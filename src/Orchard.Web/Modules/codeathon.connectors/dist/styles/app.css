@@ -15934,7 +15934,7 @@ body.boxed {
   position: relative;
   height: 100%;
   max-height: 100%; }
-  #layout-content-only #content {
+  #layout-content-only #content-fuse {
     position: absolute;
     top: 0;
     right: 0;
@@ -34947,7 +34947,7 @@ img {
     display: none; }
   #main-fuse #quick-panel {
     display: none; }
-  #main-fuse #content {
+  #main-fuse #content-fuse {
     position: relative !important;
     top: 0 !important;
     right: 0 !important;
@@ -36675,8 +36675,8 @@ body.ms-search-bar-expanded #toolbar {
 #chat-app {
   height: 100% !important; }
   #chat-app .center {
-    padding: 32px 32px 0 32px;
-    max-width: 1400px;
+    padding: 1px 1px 0 1px;
+    max-width: 1500px;
     height: 100%;
     margin: 0 auto; }
     #chat-app .center .content-card {

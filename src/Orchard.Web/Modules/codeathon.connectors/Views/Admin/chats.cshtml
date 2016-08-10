@@ -1,8 +1,7 @@
 ﻿
-@{ Layout.Title = T("Chats").ToString(); }
+@{ Layout.Title = T("Conversations Dashboard").ToString(); }
 
 
-<div>@T("There is currently no chats.")</div>
 <base href="~/Modules/codeathon.connectors/dist/">
 <link rel="stylesheet" href="styles/vendor.css">
 
@@ -22,7 +21,6 @@
 
             <div id="main-fuse" class="animate-slide-up" ui-view="main" layout="column" layout-wrap></div>
 
-            <ms-theme-options></ms-theme-options>
 
             <!-- endinject -->
             <!-- inject:partials -->
