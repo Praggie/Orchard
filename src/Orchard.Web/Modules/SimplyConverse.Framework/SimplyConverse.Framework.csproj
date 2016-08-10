@@ -1,0 +1,534 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{02943620-8EE1-4A28-9EFE-08B18B0AAFEE}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SimplyConverse.Framework</RootNamespace>
+    <AssemblyName>SimplyConverse.Framework</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\..\..\OrchardBasicCorrectness.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Bot.Builder, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.Bot.Builder.3.1.0\lib\net46\Microsoft.Bot.Builder.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Bot.Connector, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.Bot.Builder.3.1.0\lib\net46\Microsoft.Bot.Connector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Http">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets.json" />
+    <Content Include="Assets\Styles.less" />
+    <Content Include="dist\app\core\config\fuse-config.provider.js" />
+    <Content Include="dist\app\core\core.config.js" />
+    <Content Include="dist\app\core\core.module.js" />
+    <Content Include="dist\app\core\core.run.js" />
+    <Content Include="dist\app\core\directives\highlight.directive.js" />
+    <Content Include="dist\app\core\directives\ms-card\ms-card.directive.js" />
+    <Content Include="dist\app\core\directives\ms-card\templates\template-10\template-10.html" />
+    <Content Include="dist\app\core\directives\ms-card\templates\template-1\template-1.html" />
+    <Content Include="dist\app\core\directives\ms-card\templates\template-2\template-2.html" />
+    <Content Include="dist\app\core\directives\ms-card\templates\template-3\template-3.html" />
+    <Content Include="dist\app\core\directives\ms-card\templates\template-4\template-4.html" />
+    <Content Include="dist\app\core\directives\ms-card\templates\template-5\template-5.html" />
+    <Content Include="dist\app\core\directives\ms-card\templates\template-6\template-6.html" />
+    <Content Include="dist\app\core\directives\ms-card\templates\template-7\template-7.html" />
+    <Content Include="dist\app\core\directives\ms-card\templates\template-8\template-8.html" />
+    <Content Include="dist\app\core\directives\ms-card\templates\template-9\template-9.html" />
+    <Content Include="dist\app\core\directives\ms-datepicker-fix\ms-datepicker-fix.directive.js" />
+    <Content Include="dist\app\core\directives\ms-form-wizard\ms-form-wizard.directive.js" />
+    <Content Include="dist\app\core\directives\ms-info-bar\ms-info-bar.directive.js" />
+    <Content Include="dist\app\core\directives\ms-info-bar\ms-info-bar.html" />
+    <Content Include="dist\app\core\directives\ms-masonry\ms-masonry.directive.js" />
+    <Content Include="dist\app\core\directives\ms-material-color-picker\ms-material-color-picker.directive.js" />
+    <Content Include="dist\app\core\directives\ms-material-color-picker\ms-material-color-picker.html" />
+    <Content Include="dist\app\core\directives\ms-navigation\ms-navigation.directive.js" />
+    <Content Include="dist\app\core\directives\ms-navigation\templates\horizontal.html" />
+    <Content Include="dist\app\core\directives\ms-navigation\templates\vertical.html" />
+    <Content Include="dist\app\core\directives\ms-nav\ms-nav.directive.js" />
+    <Content Include="dist\app\core\directives\ms-random-class\ms-random-class.directive.js" />
+    <Content Include="dist\app\core\directives\ms-responsive-table\ms-responsive-table.directive.js" />
+    <Content Include="dist\app\core\directives\ms-scroll\ms-scroll.directive.js" />
+    <Content Include="dist\app\core\directives\ms-search-bar\ms-search-bar.directive.js" />
+    <Content Include="dist\app\core\directives\ms-search-bar\ms-search-bar.html" />
+    <Content Include="dist\app\core\directives\ms-shortcuts\ms-shortcuts.directive.js" />
+    <Content Include="dist\app\core\directives\ms-shortcuts\ms-shortcuts.html" />
+    <Content Include="dist\app\core\directives\ms-sidenav-helper\ms-sidenav-helper.directive.js" />
+    <Content Include="dist\app\core\directives\ms-splash-screen\ms-splash-screen.directive.js" />
+    <Content Include="dist\app\core\directives\ms-stepper\ms-stepper.directive.js" />
+    <Content Include="dist\app\core\directives\ms-stepper\templates\horizontal\horizontal.html" />
+    <Content Include="dist\app\core\directives\ms-stepper\templates\vertical\step\vertical-step.html" />
+    <Content Include="dist\app\core\directives\ms-stepper\templates\vertical\vertical.html" />
+    <Content Include="dist\app\core\directives\ms-timeline\ms-timeline.js" />
+    <Content Include="dist\app\core\directives\ms-widget\ms-widget.directive.js" />
+    <Content Include="dist\app\core\filters\altDate.filter.js" />
+    <Content Include="dist\app\core\filters\basic.filter.js" />
+    <Content Include="dist\app\core\filters\filterByIds.filter.js" />
+    <Content Include="dist\app\core\filters\filterByPropIds.filter.js" />
+    <Content Include="dist\app\core\filters\tag.filter.js" />
+    <Content Include="dist\app\core\layouts\content-only.html" />
+    <Content Include="dist\app\core\layouts\content-with-toolbar.html" />
+    <Content Include="dist\app\core\layouts\horizontal-navigation.html" />
+    <Content Include="dist\app\core\layouts\vertical-navigation-fullwidth-toolbar-2.html" />
+    <Content Include="dist\app\core\layouts\vertical-navigation-fullwidth-toolbar.html" />
+    <Content Include="dist\app\core\layouts\vertical-navigation.html" />
+    <Content Include="dist\app\core\services\api-resolver.service.js" />
+    <Content Include="dist\app\core\services\ms-api.provider.js" />
+    <Content Include="dist\app\core\services\ms-utils.service.js" />
+    <Content Include="dist\app\core\theme-options\theme-options.directive.js" />
+    <Content Include="dist\app\core\theme-options\theme-options.html" />
+    <Content Include="dist\app\core\theming\fuse-generator.service.js" />
+    <Content Include="dist\app\core\theming\fuse-palettes.constant.js" />
+    <Content Include="dist\app\core\theming\fuse-themes.constant.js" />
+    <Content Include="dist\app\core\theming\fuse-theming.config.js" />
+    <Content Include="dist\app\core\theming\fuse-theming.service.js" />
+    <Content Include="dist\app\data\readme.txt" />
+    <Content Include="dist\app\index.api.js" />
+    <Content Include="dist\app\index.config.js" />
+    <Content Include="dist\app\index.constants.js" />
+    <Content Include="dist\app\index.controller.js" />
+    <Content Include="dist\app\index.module.js" />
+    <Content Include="dist\app\index.route.js" />
+    <Content Include="dist\app\index.run.js" />
+    <Content Include="dist\app\main\apps\chat\chat.controller.js" />
+    <Content Include="dist\app\main\apps\chat\chat.html" />
+    <Content Include="dist\app\main\apps\chat\chat.module.js" />
+    <Content Include="dist\app\main\apps\chat\services\chats.service.js" />
+    <Content Include="dist\app\main\apps\chat\sidenavs\left\left-sidenav.html" />
+    <Content Include="dist\app\main\apps\chat\sidenavs\left\views\chats\chats-view.html" />
+    <Content Include="dist\app\main\apps\chat\sidenavs\left\views\contacts\contacts-view.html" />
+    <Content Include="dist\app\main\apps\chat\sidenavs\left\views\user\user-view.html" />
+    <Content Include="dist\app\main\apps\chat\sidenavs\right\right-sidenav.html" />
+    <Content Include="dist\app\main\apps\chat\sidenavs\right\views\contact\contact-view.html" />
+    <Content Include="dist\app\main\apps\e-commerce\e-commerce.module.js" />
+    <Content Include="dist\app\main\apps\e-commerce\views\dashboard\dashboard.controller.js" />
+    <Content Include="dist\app\main\apps\e-commerce\views\dashboard\dashboard.html" />
+    <Content Include="dist\app\main\apps\e-commerce\views\orders\orders.controller.js" />
+    <Content Include="dist\app\main\apps\e-commerce\views\orders\orders.html" />
+    <Content Include="dist\app\main\apps\e-commerce\views\order\order.controller.js" />
+    <Content Include="dist\app\main\apps\e-commerce\views\order\order.html" />
+    <Content Include="dist\app\main\apps\e-commerce\views\products\products.controller.js" />
+    <Content Include="dist\app\main\apps\e-commerce\views\products\products.html" />
+    <Content Include="dist\app\main\apps\e-commerce\views\product\product.controller.js" />
+    <Content Include="dist\app\main\apps\e-commerce\views\product\product.html" />
+    <Content Include="dist\app\main\main.controller.js" />
+    <Content Include="dist\app\main\sample\sample.controller.js" />
+    <Content Include="dist\app\main\sample\sample.html" />
+    <Content Include="dist\app\main\sample\sample.module.js" />
+    <Content Include="dist\app\navigation\layouts\horizontal-navigation\navigation.html" />
+    <Content Include="dist\app\navigation\layouts\vertical-navigation-fullwidth-toolbar-2\navigation.html" />
+    <Content Include="dist\app\navigation\layouts\vertical-navigation\navigation.html" />
+    <Content Include="dist\app\navigation\navigation.controller.js" />
+    <Content Include="dist\app\navigation\navigation.module.js" />
+    <Content Include="dist\app\quick-panel\quick-panel.controller.js" />
+    <Content Include="dist\app\quick-panel\quick-panel.html" />
+    <Content Include="dist\app\quick-panel\quick-panel.module.js" />
+    <Content Include="dist\app\quick-panel\tabs\activity\activity-tab.html" />
+    <Content Include="dist\app\quick-panel\tabs\chat\chat-tab.controller.js" />
+    <Content Include="dist\app\quick-panel\tabs\chat\chat-tab.html" />
+    <Content Include="dist\app\quick-panel\tabs\today\today-tab.html" />
+    <Content Include="dist\app\toolbar\layouts\content-with-toolbar\toolbar.html" />
+    <Content Include="dist\app\toolbar\layouts\horizontal-navigation\toolbar.html" />
+    <Content Include="dist\app\toolbar\layouts\vertical-navigation-fullwidth-toolbar-2\toolbar.html" />
+    <Content Include="dist\app\toolbar\layouts\vertical-navigation-fullwidth-toolbar\toolbar.html" />
+    <Content Include="dist\app\toolbar\layouts\vertical-navigation\toolbar.html" />
+    <Content Include="dist\app\toolbar\toolbar.controller.js" />
+    <Content Include="dist\app\toolbar\toolbar.module.js" />
+    <Content Include="dist\assets\angular-material-assets\img\donut.jpg" />
+    <Content Include="dist\assets\angular-material-assets\img\icons\toggle-arrow.svg" />
+    <Content Include="dist\assets\icons\fonts\icomoon.svg" />
+    <Content Include="dist\assets\images\avatars\Abbott.jpg" />
+    <Content Include="dist\assets\images\avatars\alice.jpg" />
+    <Content Include="dist\assets\images\avatars\andrew.jpg" />
+    <Content Include="dist\assets\images\avatars\Arnold.jpg" />
+    <Content Include="dist\assets\images\avatars\Barrera.jpg" />
+    <Content Include="dist\assets\images\avatars\Blair.jpg" />
+    <Content Include="dist\assets\images\avatars\Boyle.jpg" />
+    <Content Include="dist\assets\images\avatars\carl.jpg" />
+    <Content Include="dist\assets\images\avatars\Christy.jpg" />
+    <Content Include="dist\assets\images\avatars\Copeland.jpg" />
+    <Content Include="dist\assets\images\avatars\danielle.jpg" />
+    <Content Include="dist\assets\images\avatars\Estes.jpg" />
+    <Content Include="dist\assets\images\avatars\garry.jpg" />
+    <Content Include="dist\assets\images\avatars\Harper.jpg" />
+    <Content Include="dist\assets\images\avatars\Helen.jpg" />
+    <Content Include="dist\assets\images\avatars\Henderson.jpg" />
+    <Content Include="dist\assets\images\avatars\james.jpg" />
+    <Content Include="dist\assets\images\avatars\jane.jpg" />
+    <Content Include="dist\assets\images\avatars\Josefina.jpg" />
+    <Content Include="dist\assets\images\avatars\joyce.jpg" />
+    <Content Include="dist\assets\images\avatars\katherine.jpg" />
+    <Content Include="dist\assets\images\avatars\Katina.jpg" />
+    <Content Include="dist\assets\images\avatars\Lily.jpg" />
+    <Content Include="dist\assets\images\avatars\Mai.jpg" />
+    <Content Include="dist\assets\images\avatars\Nancy.jpg" />
+    <Content Include="dist\assets\images\avatars\Nora.jpg" />
+    <Content Include="dist\assets\images\avatars\Odessa.jpg" />
+    <Content Include="dist\assets\images\avatars\profile.jpg" />
+    <Content Include="dist\assets\images\avatars\Reyna.jpg" />
+    <Content Include="dist\assets\images\avatars\Shauna.jpg" />
+    <Content Include="dist\assets\images\avatars\Shepard.jpg" />
+    <Content Include="dist\assets\images\avatars\Tillman.jpg" />
+    <Content Include="dist\assets\images\avatars\Trevino.jpg" />
+    <Content Include="dist\assets\images\avatars\Tyson.jpg" />
+    <Content Include="dist\assets\images\avatars\Velazquez.jpg" />
+    <Content Include="dist\assets\images\avatars\vincent.jpg" />
+    <Content Include="dist\assets\images\backgrounds\april.jpg" />
+    <Content Include="dist\assets\images\backgrounds\august.jpg" />
+    <Content Include="dist\assets\images\backgrounds\december.jpg" />
+    <Content Include="dist\assets\images\backgrounds\february.jpg" />
+    <Content Include="dist\assets\images\backgrounds\header-bg.png" />
+    <Content Include="dist\assets\images\backgrounds\january.jpg" />
+    <Content Include="dist\assets\images\backgrounds\july.jpg" />
+    <Content Include="dist\assets\images\backgrounds\june.jpg" />
+    <Content Include="dist\assets\images\backgrounds\march.jpg" />
+    <Content Include="dist\assets\images\backgrounds\may.jpg" />
+    <Content Include="dist\assets\images\backgrounds\november.jpg" />
+    <Content Include="dist\assets\images\backgrounds\october.jpg" />
+    <Content Include="dist\assets\images\backgrounds\september.jpg" />
+    <Content Include="dist\assets\images\ecommerce\product-image-placeholder.png" />
+    <Content Include="dist\assets\images\etc\air-balloons.jpg" />
+    <Content Include="dist\assets\images\etc\alice-cooper-poison.jpg" />
+    <Content Include="dist\assets\images\etc\avenue.jpg" />
+    <Content Include="dist\assets\images\etc\cactus.jpg" />
+    <Content Include="dist\assets\images\etc\early-sunrise.jpg" />
+    <Content Include="dist\assets\images\etc\fallout.jpg" />
+    <Content Include="dist\assets\images\etc\flowers-thumb.jpg" />
+    <Content Include="dist\assets\images\etc\mountain-lake.jpg" />
+    <Content Include="dist\assets\images\etc\mountain-sunset.jpg" />
+    <Content Include="dist\assets\images\etc\road-trip.jpg" />
+    <Content Include="dist\assets\images\etc\sample-file-preview.jpg" />
+    <Content Include="dist\assets\images\etc\snow-thumb.jpg" />
+    <Content Include="dist\assets\images\etc\snow.jpg" />
+    <Content Include="dist\assets\images\etc\sunrise-thumb.jpg" />
+    <Content Include="dist\assets\images\etc\tropical-beach.jpg" />
+    <Content Include="dist\assets\images\flags\es.png" />
+    <Content Include="dist\assets\images\flags\tr.png" />
+    <Content Include="dist\assets\images\flags\us.png" />
+    <Content Include="dist\assets\images\logos\android.png" />
+    <Content Include="dist\assets\images\logos\angular-material.png" />
+    <Content Include="dist\assets\images\logos\angular.png" />
+    <Content Include="dist\assets\images\logos\browsersync.png" />
+    <Content Include="dist\assets\images\logos\fallout.png" />
+    <Content Include="dist\assets\images\logos\google.png" />
+    <Content Include="dist\assets\images\logos\gulp.png" />
+    <Content Include="dist\assets\images\logos\jasmine.png" />
+    <Content Include="dist\assets\images\logos\karma.png" />
+    <Content Include="dist\assets\images\logos\node-sass.png" />
+    <Content Include="dist\assets\images\logos\protractor.png" />
+    <Content Include="dist\assets\images\logos\yeoman.png" />
+    <Content Include="dist\assets\images\patterns\drop-grey.png" />
+    <Content Include="dist\assets\images\patterns\drop.png" />
+    <Content Include="dist\assets\images\patterns\rain-grey.png" />
+    <Content Include="dist\assets\images\patterns\rain.png" />
+    <Content Include="dist\assets\images\scrumboard\calendar.jpg" />
+    <Content Include="dist\assets\images\scrumboard\header-1.jpg" />
+    <Content Include="dist\assets\images\scrumboard\header-2.jpg" />
+    <Content Include="dist\assets\images\scrumboard\mail.jpg" />
+    <Content Include="dist\assets\images\theme-options\content-only.jpg" />
+    <Content Include="dist\assets\images\theme-options\content-with-toolbar.jpg" />
+    <Content Include="dist\assets\images\theme-options\horizontal-nav.jpg" />
+    <Content Include="dist\assets\images\theme-options\vertical-nav-with-full-toolbar-2.jpg" />
+    <Content Include="dist\assets\images\theme-options\vertical-nav-with-full-toolbar.jpg" />
+    <Content Include="dist\assets\images\theme-options\vertical-nav.jpg" />
+    <Content Include="dist\favicon.ico" />
+    <Content Include="dist\index.html" />
+    <Content Include="dist\scripts\app.js" />
+    <Content Include="dist\scripts\vendor.js" />
+    <Content Include="dist\styles\app.css" />
+    <Content Include="dist\styles\vendor.css" />
+    <Content Include="Styles\Styles.css" />
+    <Content Include="Styles\Styles.min.css" />
+    <Content Include="Web.config" />
+    <Content Include="Scripts\Web.config" />
+    <Content Include="Styles\Web.config" />
+    <Content Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Module.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Orchard\Orchard.Framework.csproj">
+      <Project>{2D1D92BB-4555-4CBE-8D0E-63563D6CE4C6}</Project>
+      <Name>Orchard.Framework</Name>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Orchard.Core.csproj">
+      <Project>{9916839C-39FC-4CEB-A5AF-89CA7E87119F}</Project>
+      <Name>Orchard.Core</Name>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Conditions\Orchard.Conditions.csproj">
+      <Project>{98251eae-a41b-47b2-aa91-e28b8482da70}</Project>
+      <Name>Orchard.Conditions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Forms\Orchard.Forms.csproj">
+      <Project>{642a49d7-8752-4177-80d6-bfbbcfad3de0}</Project>
+      <Name>Orchard.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Tokens\Orchard.Tokens.csproj">
+      <Project>{6f759635-13d7-4e94-bcc9-80445d63f117}</Project>
+      <Name>Orchard.Tokens</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Workflows\Orchard.Workflows.csproj">
+      <Project>{7059493c-8251-4764-9c1e-2368b8b485bc}</Project>
+      <Name>Orchard.Workflows</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Placement.info">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="dist\app\core\directives\ms-card\ms-card.scss" />
+    <Content Include="dist\app\core\directives\ms-card\templates\template-10\template-10.scss" />
+    <Content Include="dist\app\core\directives\ms-card\templates\template-1\template-1.scss" />
+    <Content Include="dist\app\core\directives\ms-card\templates\template-2\template-2.scss" />
+    <Content Include="dist\app\core\directives\ms-card\templates\template-3\template-3.scss" />
+    <Content Include="dist\app\core\directives\ms-card\templates\template-4\template-4.scss" />
+    <Content Include="dist\app\core\directives\ms-card\templates\template-5\template-5.scss" />
+    <Content Include="dist\app\core\directives\ms-card\templates\template-6\template-6.scss" />
+    <Content Include="dist\app\core\directives\ms-card\templates\template-7\template-7.scss" />
+    <Content Include="dist\app\core\directives\ms-card\templates\template-8\template-8.scss" />
+    <Content Include="dist\app\core\directives\ms-card\templates\template-9\template-9.scss" />
+    <Content Include="dist\app\core\directives\ms-form-wizard\ms-form-wizard.scss" />
+    <Content Include="dist\app\core\directives\ms-info-bar\ms-info-bar.scss" />
+    <Content Include="dist\app\core\directives\ms-masonry\ms-masonry.scss" />
+    <Content Include="dist\app\core\directives\ms-material-color-picker\ms-material-color-picker.scss" />
+    <Content Include="dist\app\core\directives\ms-navigation\ms-navigation.scss" />
+    <Content Include="dist\app\core\directives\ms-nav\ms-nav.scss" />
+    <Content Include="dist\app\core\directives\ms-responsive-table\ms-responsive-table.scss" />
+    <Content Include="dist\app\core\directives\ms-scroll\ms-scroll.scss" />
+    <Content Include="dist\app\core\directives\ms-search-bar\ms-search-bar.scss" />
+    <Content Include="dist\app\core\directives\ms-shortcuts\ms-shortcuts.scss" />
+    <Content Include="dist\app\core\directives\ms-splash-screen\ms-splash-screen.scss" />
+    <Content Include="dist\app\core\directives\ms-stepper\ms-stepper.scss" />
+    <Content Include="dist\app\core\directives\ms-stepper\templates\horizontal\horizontal.scss" />
+    <Content Include="dist\app\core\directives\ms-stepper\templates\vertical\vertical.scss" />
+    <Content Include="dist\app\core\directives\ms-timeline\ms-timeline.scss" />
+    <Content Include="dist\app\core\directives\ms-widget\ms-widget.scss" />
+    <Content Include="dist\app\core\scss\global.scss" />
+    <Content Include="dist\app\core\scss\partials\angular-material-extend.scss" />
+    <Content Include="dist\app\core\scss\partials\animations.scss" />
+    <Content Include="dist\app\core\scss\partials\colors.scss" />
+    <Content Include="dist\app\core\scss\partials\helpers.scss" />
+    <Content Include="dist\app\core\scss\partials\icons.scss" />
+    <Content Include="dist\app\core\scss\partials\layouts-page.scss" />
+    <Content Include="dist\app\core\scss\partials\layouts-template.scss" />
+    <Content Include="dist\app\core\scss\partials\material.scss" />
+    <Content Include="dist\app\core\scss\partials\mixins.scss" />
+    <Content Include="dist\app\core\scss\partials\plugins\angular-google-map.scss" />
+    <Content Include="dist\app\core\scss\partials\plugins\angular-moment-picker.scss" />
+    <Content Include="dist\app\core\scss\partials\plugins\c3.scss" />
+    <Content Include="dist\app\core\scss\partials\plugins\chartist.scss" />
+    <Content Include="dist\app\core\scss\partials\plugins\chartjs.scss" />
+    <Content Include="dist\app\core\scss\partials\plugins\datatable.scss" />
+    <Content Include="dist\app\core\scss\partials\plugins\highlight.scss" />
+    <Content Include="dist\app\core\scss\partials\plugins\nvd3.scss" />
+    <Content Include="dist\app\core\scss\partials\plugins\perfect-scrollbar.scss" />
+    <Content Include="dist\app\core\scss\partials\plugins\text-angular.scss" />
+    <Content Include="dist\app\core\scss\partials\print.scss" />
+    <Content Include="dist\app\core\scss\partials\reset.scss" />
+    <Content Include="dist\app\core\scss\partials\typography.scss" />
+    <Content Include="dist\app\core\scss\partials\variables.scss" />
+    <Content Include="dist\app\core\theme-options\theme-options.scss" />
+    <Content Include="dist\app\data\chat\chats.json" />
+    <Content Include="dist\app\data\chat\contacts.json" />
+    <Content Include="dist\app\data\chat\user.json" />
+    <Content Include="dist\app\data\e-commerce\customers.json" />
+    <Content Include="dist\app\data\e-commerce\dashboard.json" />
+    <Content Include="dist\app\data\e-commerce\order.json" />
+    <Content Include="dist\app\data\e-commerce\orders.json" />
+    <Content Include="dist\app\data\e-commerce\product.json" />
+    <Content Include="dist\app\data\e-commerce\products.json" />
+    <Content Include="dist\app\data\e-commerce\statuses.json" />
+    <Content Include="dist\app\data\quick-panel\activities.json" />
+    <Content Include="dist\app\data\quick-panel\contacts.json" />
+    <Content Include="dist\app\data\quick-panel\events.json" />
+    <Content Include="dist\app\data\quick-panel\notes.json" />
+    <Content Include="dist\app\data\sample\sample.json" />
+    <Content Include="dist\app\index.scss" />
+    <Content Include="dist\app\main\apps\chat\chat.scss" />
+    <Content Include="dist\app\main\apps\chat\i18n\en.json" />
+    <Content Include="dist\app\main\apps\chat\sidenavs\left\left-sidenav.scss" />
+    <Content Include="dist\app\main\apps\chat\sidenavs\left\views\chats\chats-view.scss" />
+    <Content Include="dist\app\main\apps\chat\sidenavs\left\views\contacts\contacts-views.scss" />
+    <Content Include="dist\app\main\apps\chat\sidenavs\left\views\user\user-view.scss" />
+    <Content Include="dist\app\main\apps\chat\sidenavs\right\right-sidenav.scss" />
+    <Content Include="dist\app\main\apps\chat\sidenavs\right\views\contact\contact-view.scss" />
+    <Content Include="dist\app\main\apps\e-commerce\e-commerce.scss" />
+    <Content Include="dist\app\main\apps\e-commerce\i18n\en.json" />
+    <Content Include="dist\app\main\apps\e-commerce\views\orders\orders.scss" />
+    <Content Include="dist\app\main\apps\e-commerce\views\order\order.scss" />
+    <Content Include="dist\app\main\apps\e-commerce\views\products\products.scss" />
+    <Content Include="dist\app\main\apps\e-commerce\views\product\product.scss" />
+    <Content Include="dist\app\main\sample\i18n\en.json" />
+    <Content Include="dist\app\navigation\layouts\horizontal-navigation\navigation.scss" />
+    <Content Include="dist\app\navigation\layouts\vertical-navigation-fullwidth-toolbar-2\navigation.scss" />
+    <Content Include="dist\app\navigation\layouts\vertical-navigation\navigation.scss" />
+    <Content Include="dist\app\quick-panel\i18n\en.json" />
+    <Content Include="dist\app\quick-panel\quick-panel.scss" />
+    <Content Include="dist\app\quick-panel\tabs\activity\activity-tab.scss" />
+    <Content Include="dist\app\quick-panel\tabs\chat\chat-tab.scss" />
+    <Content Include="dist\app\quick-panel\tabs\today\today-tab.scss" />
+    <Content Include="dist\app\toolbar\i18n\en.json" />
+    <Content Include="dist\app\toolbar\layouts\content-with-toolbar\toolbar.scss" />
+    <Content Include="dist\app\toolbar\layouts\horizontal-navigation\toolbar.scss" />
+    <Content Include="dist\app\toolbar\layouts\vertical-navigation-fullwidth-toolbar-2\toolbar.scss" />
+    <Content Include="dist\app\toolbar\toolbar.scss" />
+    <Content Include="dist\assets\icons\fonts\icomoon.eot" />
+    <Content Include="dist\assets\icons\fonts\icomoon.ttf" />
+    <Content Include="dist\assets\icons\fonts\icomoon.woff" />
+    <Content Include="dist\assets\icons\selection.json" />
+    <Content Include="dist\maps\styles\app.css.map" />
+    <Content Include="dist\maps\styles\vendor.css.map" />
+    <Content Include="dist\Web.config" />
+    <Content Include="packages.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Activities\ActivityReceivedActivity.cs" />
+    <Compile Include="Activities\SendActivityActivity.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Forms\SendActivityForm.cs" />
+    <Compile Include="Forms\TextFilterContainsForm.cs" />
+    <Compile Include="Handlers\ActivityPartHandler.cs" />
+    <Compile Include="Menu\AdminMenu.cs" />
+    <Compile Include="Migrations.cs" />
+    <Compile Include="Models\Activity.cs" />
+    <Compile Include="Providers\ActivityTokenProvider.cs" />
+    <Compile Include="Services\BotFrameworkService.cs" />
+    <Compile Include="Services\IBotFrameworkService.cs" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target> -->
+  <Target Name="AfterBuild" DependsOnTargets="AfterBuildCompiler">
+    <PropertyGroup>
+      <AreasManifestDir>$(ProjectDir)\..\Manifests</AreasManifestDir>
+    </PropertyGroup>
+    <!-- If this is an area child project, uncomment the following line:
+    <CreateAreaManifest AreaName="$(AssemblyName)" AreaType="Child" AreaPath="$(ProjectDir)" ManifestPath="$(AreasManifestDir)" ContentFiles="@(Content)" />
+    -->
+    <!-- If this is an area parent project, uncomment the following lines:
+    <CreateAreaManifest AreaName="$(AssemblyName)" AreaType="Parent" AreaPath="$(ProjectDir)" ManifestPath="$(AreasManifestDir)" ContentFiles="@(Content)" />
+    <CopyAreaManifests ManifestPath="$(AreasManifestDir)" CrossCopy="false" RenameViews="true" />
+    -->
+  </Target>
+  <Target Name="AfterBuildCompiler" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(ProjectDir)\..\$(ProjectName)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51709</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:51709/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
