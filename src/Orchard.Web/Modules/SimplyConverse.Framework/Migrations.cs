@@ -23,7 +23,6 @@ namespace SimplyConverse.Framework
                 .Column("Type", DbType.String)
                 .Column<int>("From_Id")
                 .Column("ServiceUrl", DbType.String)
-                .Column("Conversation", DbType.String)
                 .Column("ChannelId", DbType.String)
                 .Column("Text", DbType.String)
                 .Column<int>("Recipient_Id")
@@ -68,7 +67,13 @@ namespace SimplyConverse.Framework
 
             return 2;
         }
+        public int UpdateFrom2()
+        {
+            // Creating table TweetRecord
+            SchemaBuilder.AlterTable("BBActivityRecord", table => table.AddColumn("Conversation_Id", DbType.Int32));
 
+            return 3;
+        }
     }
 
 
