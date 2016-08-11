@@ -7,5 +7,7 @@ namespace SimplyConverse.Framework.Services
     {
         void ReplyWithText(IMessageActivity textToSend);
 
+
+        void SendBBActivityToChatDashboard(Activity newMessage);
     }
 }

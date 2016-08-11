@@ -19,6 +19,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Microsoft.Bot.Connector;
 using SimplyConverse.Framework.Models;
 using Orchard.ContentManagement;
 using Orchard.Core.Title.Models;
@@ -58,6 +59,8 @@ namespace SimplyConverse.Framework.Providers
                  .Token("ConversationId", T("ConversationId"), T("ConversationId"))
                  .Token("ConversationName", T("ConversationName"), T("ConversationName"))
                  .Token("Type", T("Type"), T("Type"));
+
+            context.For(ActivityKey, T("Activity"), T("Activity")).Token("originalBBActivity", T("originalBBActivity"), T("originalBBActivity"));
         }
 
         public void Evaluate(EvaluateContext context)
@@ -97,6 +100,8 @@ namespace SimplyConverse.Framework.Providers
                    .Token("ConversationId", contextParameter => part.Conversation.Id)
                    .Token("ConversationName", contextParameter => part.Conversation.Name)
                .Token("ActivityId", contextParameter => part.ActivityId);
+
+            context.For<Activity>(ActivityKey).Token("originalBBActivity", contextParameter => context.Data["originalBBActivity"]);
         }
 
     }

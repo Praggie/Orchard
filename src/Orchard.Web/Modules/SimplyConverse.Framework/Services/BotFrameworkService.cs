@@ -1,4 +1,5 @@
 using System;
+using KwiklyBot;
 using Microsoft.Bot.Connector;
 
 namespace SimplyConverse.Framework.Services {
@@ -15,6 +16,10 @@ namespace SimplyConverse.Framework.Services {
             var connector = new ConnectorClient(new Uri(textToSend.ServiceUrl));
             
             connector.Conversations.SendToConversation((Activity)textToSend);
+        }
+
+        public void SendBBActivityToChatDashboard(Activity newMessage) {
+            DashboardHelper.SendMessageToDashboard(newMessage);
         }
     }
 }

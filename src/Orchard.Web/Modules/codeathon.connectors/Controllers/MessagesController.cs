@@ -115,8 +115,7 @@ namespace codeathon.connectors.Controllers
 
                     _contentManager.Create(msg);
 
-                    _workflowManager.TriggerEvent(ActivityReceivedActivity.ActivityName, msg, () => new Dictionary<string, object> { { "Content", msg } });
-
+                    _workflowManager.TriggerEvent(ActivityReceivedActivity.ActivityName, msg, () => new Dictionary<string, object> { { "Content", msg }, {"originalBBActivity", activity} });
 
                 }
                 catch (Exception exception) {

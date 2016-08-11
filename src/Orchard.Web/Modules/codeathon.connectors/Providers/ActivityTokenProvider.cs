@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using codeathon.connectors.Models;
+using Microsoft.Bot.Connector;
 using Orchard.ContentManagement;
 using Orchard.Core.Title.Models;
 using Orchard.Localization;
@@ -90,13 +91,17 @@ namespace codeathon.connectors.Providers
             context.For(ActivityTokenProvider.ActivityKey, () => this.GetPart<ActivityPart>(context))
                 .Token("Text", contextParameter => part.Text).Token("Type", contextParameter => part.Type)
                 .Token("ReplyToId", contextParameter => part.ReplyToId)
-                 .Token("ChannelId", contextParameter => part.ChannelId)
-                  .Token("ServiceUrl", contextParameter => part.ServiceUrl)
-                   .Token("TextFormat", contextParameter => part.TextFormat)
-                   .Token("AttachmentLayout", contextParameter => part.AttachmentLayout)
-                   .Token("ConversationId", contextParameter => part.Conversation.Id)
-                   .Token("ConversationName", contextParameter => part.Conversation.Name)
-               .Token("ActivityId", contextParameter => part.ActivityId);
+                .Token("ChannelId", contextParameter => part.ChannelId)
+                .Token("ServiceUrl", contextParameter => part.ServiceUrl)
+                .Token("TextFormat", contextParameter => part.TextFormat)
+                .Token("AttachmentLayout", contextParameter => part.AttachmentLayout)
+                .Token("ConversationId", contextParameter => part.Conversation.Id)
+                .Token("ConversationName", contextParameter => part.Conversation.Name)
+                .Token("ActivityId", contextParameter => part.ActivityId);
+
+            
+
+
         }
 
     }
