@@ -16,7 +16,7 @@ namespace SimplyConverse.Framework
         {
 
             // Creating table TweetRecord
-            SchemaBuilder.CreateTable("ActivityRecord", table => table
+            SchemaBuilder.CreateTable("BBActivityRecord", table => table
                 .ContentPartRecord()
                 .Column("Timestamp", DbType.DateTime)
                 .Column("ActivityId", DbType.String)
@@ -51,21 +51,23 @@ namespace SimplyConverse.Framework
          .Column<string>("Name")
      );
 
-            ContentDefinitionManager.AlterPartDefinition("ActivityPart", builder => builder.Attachable());
+            ContentDefinitionManager.AlterPartDefinition("BBActivityPart", builder => builder.Attachable());
 
-            ContentDefinitionManager.AlterTypeDefinition(ActivityPart.ContentItemTypeName,
+            ContentDefinitionManager.AlterTypeDefinition(BBActivityPart.ContentItemTypeName,
             cfg => cfg
                .WithPart("CommonPart")
-               .WithPart("ActivityPart")
+               .WithPart("BBActivityPart")
             .DisplayedAs("BotActivity"));
             return 1;
         }
 
-        //public int UpdateFrom1()
-        //{
-            
-        //    return 2;
-        //}
+        public int UpdateFrom1()
+        {
+            // Creating table TweetRecord
+            SchemaBuilder.AlterTable("BBActivityRecord", table => table.AddColumn("HistoryDisclosed", DbType.Boolean));
+
+            return 2;
+        }
 
     }
 

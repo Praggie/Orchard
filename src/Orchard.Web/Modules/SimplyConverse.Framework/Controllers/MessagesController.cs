@@ -79,15 +79,15 @@ namespace SimplyConverse.Framework.Controllers
                     var owner = _membershipService.GetUser(Owner);
 
                     //await Conversation.SendAsync(activity, () => new EchoDialog());
-                    var msg = _contentManager.New("BotActivity");
+                    var msg = _contentManager.New("BBActivity");
                     msg.As<ICommonPart>().Owner = owner;
-                    var part = msg.As<ActivityPart>();
+                    var part = msg.As<BBActivityPart>();
 
                     // I don't know why it is null
                     if (part == null)
                     {
-                        part = new ActivityPart();
-                        part.Record = new ActivityRecord();;
+                        part = new BBActivityPart();
+                        part.Record = new BBActivityRecord();;
                         msg.Weld(part);
                     }
 

@@ -5,7 +5,7 @@ using Orchard.ContentManagement;
 using Orchard.ContentManagement.Records;
 
 namespace SimplyConverse.Framework.Models {
-    public  class ActivityRecord: ContentPartRecord
+    public  class BBActivityRecord: ContentPartRecord
     {
         /// <summary>
         /// The type of the activity
@@ -124,9 +124,9 @@ namespace SimplyConverse.Framework.Models {
     }
 
 
-    public class ActivityPart : ContentPart<ActivityRecord>
+    public class BBActivityPart : ContentPart<BBActivityRecord>
     {
-        internal static readonly string ContentItemTypeName = "BotActivity";
+        internal static readonly string ContentItemTypeName = "BBActivity";
 
         /// <summary>
         /// The type of the activity

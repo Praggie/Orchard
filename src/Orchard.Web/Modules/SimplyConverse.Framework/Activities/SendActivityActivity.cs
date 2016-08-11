@@ -51,7 +51,7 @@ namespace SimplyConverse.Framework.Activities
         public override IEnumerable<LocalizedString> Execute(WorkflowContext workflowContext, ActivityContext activityContext)
         {
             var textToSend = activityContext.GetState<string>("TextToSend");
-            var part = workflowContext.Content.As<ActivityPart>();
+            var part = workflowContext.Content.As<BBActivityPart>();
             IMessageActivity newMessage = Activity.CreateMessageActivity();
             newMessage.Type = ActivityTypes.Message;
             newMessage.From = new Microsoft.Bot.Connector.ChannelAccount() {Name = part.Recipient.Name, Id = part.Recipient.Id};

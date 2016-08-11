@@ -81,13 +81,13 @@ namespace SimplyConverse.Framework.Providers
         
         private void SubstituteActivityProperties(EvaluateContext context)
         {
-            var part = this.GetPart<ActivityPart>(context);
+            var part = this.GetPart<BBActivityPart>(context);
             if (part == null)
             {
                 return;
             }
 
-            context.For(ActivityTokenProvider.ActivityKey, () => this.GetPart<ActivityPart>(context))
+            context.For(ActivityTokenProvider.ActivityKey, () => this.GetPart<BBActivityPart>(context))
                 .Token("Text", contextParameter => part.Text).Token("Type", contextParameter => part.Type)
                 .Token("ReplyToId", contextParameter => part.ReplyToId)
                  .Token("ChannelId", contextParameter => part.ChannelId)
